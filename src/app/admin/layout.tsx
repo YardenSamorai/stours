@@ -61,8 +61,8 @@ export default function AdminLayout({
         <div className="h-16 flex items-center justify-between px-6 border-b border-slate-700">
           <Link href="/admin" className="flex items-center">
             <span className="text-xl font-bold flex items-baseline">
-              <span className="text-2xl text-primary-500">Deal</span>
-              <span className="text-slate-300"> Tours</span>
+              <span className="text-2xl text-primary-500">דיל</span>
+              <span className="text-slate-300"> טורס</span>
             </span>
           </Link>
           <button 

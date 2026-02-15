@@ -12,10 +12,15 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: "Deal Tours - סוכנות נסיעות",
-  description: "גלה את העולם איתנו - חבילות נופש, טיסות ומלונות במחירים הטובים ביותר",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: locale === 'he' ? 'דיל טורס - סוכנות נסיעות' : 'Deal Tours - Travel Agency',
+    description: locale === 'he'
+      ? 'גלה את העולם איתנו - חבילות נופש, טיסות ומלונות במחירים הטובים ביותר'
+      : 'Discover the world with us - vacation packages, flights and hotels at the best prices',
+  };
+}
 
 export default async function LocaleLayout({
   children,

@@ -200,7 +200,7 @@ export default function AdminDashboard() {
       <div className="bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-8 text-white">
         <h1 className="text-3xl font-bold mb-2">שלום! 👋</h1>
         <p className="text-primary-100 text-lg">
-          ברוכים הבאים למערכת הניהול של Deal Tours. כאן תוכלו לנהל את כל התוכן באתר.
+          ברוכים הבאים למערכת הניהול של דיל טורס. כאן תוכלו לנהל את כל התוכן באתר.
         </p>
       </div>
 

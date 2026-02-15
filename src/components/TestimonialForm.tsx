@@ -80,7 +80,7 @@ export default function TestimonialForm() {
     destinationPlaceholder: isHebrew ? 'לדוגמה: יוון, תאילנד...' : 'e.g., Greece, Thailand...',
     rating: isHebrew ? 'דירוג' : 'Rating',
     review: isHebrew ? 'ההמלצה שלכם' : 'Your Review',
-    reviewPlaceholder: isHebrew ? 'ספרו לנו על החוויה שלכם עם Deal Tours...' : 'Tell us about your experience with Deal Tours...',
+    reviewPlaceholder: isHebrew ? 'ספרו לנו על החוויה שלכם עם דיל טורס...' : 'Tell us about your experience with Deal Tours...',
     submit: isHebrew ? 'שלח המלצה' : 'Submit Review',
     submitting: isHebrew ? 'שולח...' : 'Submitting...',
     successTitle: isHebrew ? 'תודה רבה!' : 'Thank You!',

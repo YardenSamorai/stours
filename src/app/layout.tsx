@@ -3,7 +3,7 @@ import { heIL } from '@clerk/localizations';
 import './globals.css';
 
 export const metadata = {
-  title: 'Deal Tours - סוכנות נסיעות',
+  title: 'דיל טורס - סוכנות נסיעות | Deal Tours',
   description: 'סוכנות הנסיעות המובילה בישראל',
 };
 

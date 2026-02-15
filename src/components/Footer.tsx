@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { 
   Phone, 
@@ -24,6 +24,7 @@ import { useState } from 'react';
 export default function Footer() {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
+  const locale = useLocale();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -76,8 +77,8 @@ export default function Footer() {
           <div className="space-y-6">
             <Link href="/" className="block">
               <span className="text-2xl font-bold flex items-baseline">
-                <span className="text-3xl text-primary-500">Deal</span>
-                <span className="text-slate-300"> Tours</span>
+                <span className="text-3xl text-primary-500">{locale === 'he' ? 'דיל' : 'Deal'}</span>
+                <span className="text-slate-300"> {locale === 'he' ? 'טורס' : 'Tours'}</span>
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed text-sm">
@@ -184,7 +185,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-400 text-sm">
-            © {new Date().getFullYear()} Deal Tours. {t('rights')}
+            © {new Date().getFullYear()} {locale === 'he' ? 'דיל טורס' : 'Deal Tours'}. {t('rights')}
           </p>
           <div className="flex items-center gap-6 text-sm text-slate-400">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
