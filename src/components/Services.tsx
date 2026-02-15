@@ -196,17 +196,26 @@ export default function Services() {
             {displayServices.map((service) => {
               const IconComponent = iconMap[service.icon] || Plane;
               
+              // Type guard: check if service is from DB (has title property)
+              const isServiceData = (s: any): s is ServiceData => {
+                return 'title' in s;
+              };
+              
               const title = useDefaults 
                 ? t(`${service.key}.title`)
-                : (locale === 'en' && service.titleEn ? service.titleEn : service.title);
+                : (isServiceData(service) 
+                    ? (locale === 'en' && service.titleEn ? service.titleEn : service.title)
+                    : '');
 
               const description = useDefaults
                 ? t(`${service.key}.description`)
-                : (locale === 'en' && service.descriptionEn ? service.descriptionEn : service.description);
+                : (isServiceData(service)
+                    ? (locale === 'en' && service.descriptionEn ? service.descriptionEn : service.description)
+                    : '');
 
               return (
                 <div
-                  key={service.key}
+                  key={isServiceData(service) ? service.id : service.key}
                   className="group bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-lg hover:border-primary-100 transition-all duration-300 cursor-pointer"
                 >
                   {/* Icon */}
