@@ -234,5 +234,3 @@ class RateHawkClient {
 // Export singleton instance
 export const ratehawk = new RateHawkClient();
 
-// Export types
-export type { RateHawkConfig };
