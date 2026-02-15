@@ -251,7 +251,7 @@ export default function EditTestimonialPage() {
                   <textarea
                     value={formData.text}
                     onChange={(e) => setFormData({ ...formData, text: e.target.value })}
-                    placeholder="חוויה מדהימה! הצוות של S-Tours דאג לכל פרט קטן..."
+                    placeholder="חוויה מדהימה! הצוות של Deal Tours דאג לכל פרט קטן..."
                     rows={5}
                     className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                     required
@@ -265,7 +265,7 @@ export default function EditTestimonialPage() {
                   <textarea
                     value={formData.textEn}
                     onChange={(e) => setFormData({ ...formData, textEn: e.target.value })}
-                    placeholder="Amazing experience! The S-Tours team took care of every little detail..."
+                    placeholder="Amazing experience! The Deal Tours team took care of every little detail..."
                     rows={5}
                     className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                     dir="ltr"

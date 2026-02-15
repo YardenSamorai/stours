@@ -13,7 +13,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "S-Tours - סוכנות נסיעות",
+  title: "Deal Tours - סוכנות נסיעות",
   description: "גלה את העולם איתנו - חבילות נופש, טיסות ומלונות במחירים הטובים ביותר",
 };
 

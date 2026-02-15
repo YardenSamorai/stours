@@ -26,7 +26,7 @@ describe('Header Component', () => {
 
   it('should render logo', () => {
     render(<Header />);
-    const logo = screen.getByAltText('S-Tours');
+    const logo = screen.getByAltText('Deal Tours');
     expect(logo).toBeInTheDocument();
   });
 

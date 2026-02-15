@@ -19,7 +19,7 @@ export default function SettingsPage() {
   
   const [settings, setSettings] = useState({
     // General
-    siteName: 'S-Tours',
+    siteName: 'Deal Tours',
     siteDescription: 'סוכנות הנסיעות המובילה בישראל',
     siteDescriptionEn: 'Israel\'s leading travel agency',
     phone: '052-511-8536',

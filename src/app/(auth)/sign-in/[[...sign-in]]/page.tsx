@@ -5,7 +5,7 @@ export default function SignInPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">S-Tours Admin</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Deal Tours Admin</h1>
           <p className="text-primary-200">התחבר לניהול האתר</p>
         </div>
         <SignIn 

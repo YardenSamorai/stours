@@ -48,8 +48,8 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <span className="text-2xl font-bold flex items-baseline">
-              <span className="text-3xl text-primary-600">S</span>
-              <span className="text-slate-800">-Tours</span>
+              <span className="text-3xl text-primary-600">Deal</span>
+              <span className="text-slate-800"> Tours</span>
             </span>
           </Link>
 

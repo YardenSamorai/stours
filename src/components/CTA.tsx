@@ -97,7 +97,7 @@ export default function CTA() {
         body: JSON.stringify({
           firstName: firstName.trim(),
           lastName: lastName.trim(),
-          email: email.trim() || `${firstName.trim()}.${lastName.trim()}@lead.stours.co.il`,
+          email: email.trim() || `${firstName.trim()}.${lastName.trim()}@lead.dealtours.co.il`,
         }),
       });
       if (!res.ok) throw new Error('fail');
@@ -188,8 +188,8 @@ export default function CTA() {
                       <Plane className={`w-4 h-4 text-white/90 ${isRTL ? 'rotate-180' : ''}`} />
                     </div>
                     <span className="text-base font-bold text-white flex items-baseline">
-                      <span className="text-lg text-accent-400">S</span>
-                      <span className="text-white/70">-Tours</span>
+                      <span className="text-lg text-accent-400">Deal</span>
+                      <span className="text-white/70"> Tours</span>
                     </span>
                   </div>
 

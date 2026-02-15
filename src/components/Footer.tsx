@@ -76,8 +76,8 @@ export default function Footer() {
           <div className="space-y-6">
             <Link href="/" className="block">
               <span className="text-2xl font-bold flex items-baseline">
-                <span className="text-3xl text-primary-500">S</span>
-                <span className="text-slate-300">-Tours</span>
+                <span className="text-3xl text-primary-500">Deal</span>
+                <span className="text-slate-300"> Tours</span>
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed text-sm">
@@ -131,8 +131,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                <a href="mailto:Stours.bookings@gmail.com" className="text-slate-400 hover:text-white transition-colors">
-                  Stours.bookings@gmail.com
+                <a href="mailto:dealtours.bookings@gmail.com" className="text-slate-400 hover:text-white transition-colors">
+                  dealtours.bookings@gmail.com
                 </a>
               </li>
             </ul>
@@ -184,7 +184,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-slate-400 text-sm">
-            © {new Date().getFullYear()} S-Tours. {t('rights')}
+            © {new Date().getFullYear()} Deal Tours. {t('rights')}
           </p>
           <div className="flex items-center gap-6 text-sm text-slate-400">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

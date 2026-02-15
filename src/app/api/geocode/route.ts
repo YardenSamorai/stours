@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=6&addressdetails=1&accept-language=he`,
       {
         headers: {
-          'User-Agent': 'S-Tours Travel Agency (stours.bookings@gmail.com)',
+          'User-Agent': 'Deal Tours Travel Agency (dealtours.bookings@gmail.com)',
         },
       }
     );

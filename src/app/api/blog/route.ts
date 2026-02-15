@@ -67,7 +67,7 @@ export async function POST(request: Request) {
       content: body.content,
       contentEn: body.contentEn,
       image: body.image,
-      authorName: body.authorName || 'S-Tours',
+      authorName: body.authorName || 'Deal Tours',
       authorImage: body.authorImage,
       category: body.category,
       categoryEn: body.categoryEn,

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "S-Tours - Your Travel Agency",
+    "title": "Deal Tours - Your Travel Agency",
     "description": "Discover the world with us - vacation packages, flights and hotels at the best prices"
   },
   "nav": {
@@ -153,9 +153,9 @@
     "newsletterSending": "Sending..."
   },
   "about": {
-    "title": "About S-Tours",
+    "title": "About Deal Tours",
     "subtitle": "Our Story",
-    "description": "S-Tours was founded out of love for travel and passion for service. We're here to turn every dream into a real experience.",
+    "description": "Deal Tours was founded out of love for travel and passion for service. We're here to turn every dream into a real experience.",
     "mission": "Our Mission",
     "missionText": "To make quality travel accessible to everyone and provide personal and professional service",
     "vision": "Our Vision",
