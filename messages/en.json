@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "title": "S-Tours - Your Travel Agency",
+    "description": "Discover the world with us - vacation packages, flights and hotels at the best prices"
+  },
+  "nav": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "services": "Services",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "hero": {
+    "title": "Visit The Most",
+    "titleHighlight": "Beautiful Places",
+    "titleEnd": "In The World",
+    "subtitle": "Plan And Book Your Perfect Trip With Expert Advice, Travel Tips, Destination Information, And Inspiration From Us.",
+    "badge": "Years of experience | Thousands of happy customers",
+    "searchPlaceholder": "Where would you like to fly?",
+    "searchInputPlaceholder": "Greece, Thailand, Italy...",
+    "travelers": "Number of travelers",
+    "traveler1": "1 traveler",
+    "traveler2": "2 travelers",
+    "traveler3": "3 travelers",
+    "traveler4": "4 travelers",
+    "traveler5": "5+ travelers",
+    "search": "Search Flights",
+    "departure": "Departure date",
+    "return": "Return date",
+    "trust1": "500+ daily flights",
+    "trust2": "10,000+ hotels",
+    "trust3": "4.9 average rating",
+    "trust4": "Secure payment"
+  },
+  "categories": {
+    "title": "Categories",
+    "subtitle": "Here are lots of interesting destinations to visit, but don't be confused — they're already grouped by category.",
+    "pyramid": "Pyramid",
+    "mountain": "Mountain",
+    "mosque": "The Mosque",
+    "desert": "Desert",
+    "tower": "Tower",
+    "beach": "Beach"
+  },
+  "destinations": {
+    "title": "Popular Destinations",
+    "subtitle": "5ost Brilliant reasons Entrada should be your one-stop-shop!",
+    "from": "From",
+    "nights": "nights",
+    "perPerson": "per person",
+    "viewDetails": "View Details",
+    "viewAll": "View All Destinations",
+    "bookNow": "Book Now",
+    "places": "Places",
+    "activities": "Activities",
+    "reviews": "Reviews"
+  },
+  "bookingServices": {
+    "carTitle": "Book Car",
+    "carDescription": "Rent a car at any destination worldwide. Enjoy complete freedom to explore at your own pace with the best rental deals.",
+    "hotelTitle": "Book Hotel",
+    "hotelDescription": "Choose from thousands of hotels worldwide — from cozy boutique stays to luxury five-star resorts, all at the best prices.",
+    "explore": "Explore more"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Everything in one place for a perfect vacation",
+    "badge": "🎯 What We Offer",
+    "learnMore": "Learn More",
+    "flights": {
+      "title": "Flights",
+      "description": "Flights worldwide at attractive prices with all airlines"
+    },
+    "hotels": {
+      "title": "Hotels",
+      "description": "Wide range of hotels around the world - from boutique to luxury"
+    },
+    "packages": {
+      "title": "Vacation Packages",
+      "description": "Packages including flight, hotel and transfers at great prices"
+    },
+    "carRental": {
+      "title": "Car Rental",
+      "description": "Car rental at any destination - complete freedom to travel at your own pace"
+    },
+    "tours": {
+      "title": "Organized Tours",
+      "description": "Organized tours with professional guides"
+    }
+  },
+  "whyUs": {
+    "title": "Why Us?",
+    "subtitle": "The reasons clients choose us again and again",
+    "experience": "15+ Years of Experience",
+    "experienceDesc": "Guiding travelers worldwide for over 15 years with professionalism and reliability",
+    "clients": "1,200+ Happy Clients",
+    "clientsDesc": "Thousands of families and couples who traveled with us and keep coming back",
+    "support": "Personal 24/7 Support",
+    "supportDesc": "A dedicated team available at any hour — before, during, and after your trip",
+    "custom": "Custom Trip Planning",
+    "customDesc": "Every vacation tailored to your exact needs and dreams"
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Thousands of satisfied customers have traveled with us"
+  },
+  "stats": {
+    "travelers": "Happy Travelers",
+    "destinations": "Destinations Worldwide",
+    "years": "Years of Experience",
+    "support": "24/7 Support"
+  },
+  "cta": {
+    "title": "Ready for Takeoff?",
+    "subtitle": "Leave your details and get exclusive deals and offers before everyone else",
+    "boardingPass": "BOARDING PASS",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "email": "Email (optional)",
+    "route": "Route",
+    "routeValue": "Your Trip",
+    "seat": "Seat",
+    "seatValue": "First Class A1",
+    "gate": "Gate",
+    "gateValue": "VIP Gate G1",
+    "date": "Date",
+    "boardNow": "Board Now ✈",
+    "submitting": "Sending...",
+    "success": "Thank you! We'll send you special offers soon",
+    "error": "An error occurred. Please try again.",
+    "benefit1": "Exclusive deals",
+    "benefit2": "No spam",
+    "benefit3": "Cancel anytime",
+    "nameRequired": "Passenger name is required",
+    "phoneRequired": "Phone number is required",
+    "phoneInvalid": "Invalid phone number"
+  },
+  "footer": {
+    "description": "Israel's leading travel agency - experts in destinations worldwide for over 15 years",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "followUs": "Follow Us",
+    "address": "50 Dizengoff St, Tel Aviv",
+    "rights": "All rights reserved",
+    "phone": "052-511-8536",
+    "newsletter": "🔥 Exclusive Deals",
+    "newsletterText": "Sign up to get exclusive deals and offers before everyone else!",
+    "newsletterSuccess": "Successfully subscribed!",
+    "newsletterButton": "Subscribe",
+    "newsletterSending": "Sending..."
+  },
+  "about": {
+    "title": "About S-Tours",
+    "subtitle": "Our Story",
+    "description": "S-Tours was founded out of love for travel and passion for service. We're here to turn every dream into a real experience.",
+    "mission": "Our Mission",
+    "missionText": "To make quality travel accessible to everyone and provide personal and professional service",
+    "vision": "Our Vision",
+    "visionText": "To be the leading and most trusted travel agency in Israel",
+    "whyUs": "Why Choose Us?",
+    "reasons": {
+      "experience": "15+ years of experience",
+      "prices": "Competitive prices",
+      "service": "Personal 24/7 service",
+      "trust": "Reliability and professionalism"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to help you plan the perfect vacation",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "destination": "Desired Destination",
+      "message": "Message",
+      "send": "Send Message",
+      "success": "Message sent successfully! We'll be in touch soon"
+    },
+    "info": {
+      "title": "Contact Information",
+      "hours": "Business Hours",
+      "hoursValue": "Sun-Thu 09:00-19:00, Fri 09:00-13:00"
+    }
+  }
+}
