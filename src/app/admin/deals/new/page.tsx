@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
@@ -12,10 +12,18 @@ import {
 import LocationPicker from '@/components/admin/LocationPicker';
 import ImageUploader from '@/components/admin/ImageUploader';
 
+interface Category {
+  id: number;
+  title: string;
+  titleEn: string | null;
+  isActive?: boolean | null;
+}
+
 export default function NewDealPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'he' | 'en'>('he');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -34,11 +42,28 @@ export default function NewDealPage() {
     tag: '',
     tagEn: '',
     tagColor: 'bg-primary-500',
+    categoryId: '',
     isActive: true,
     isFeatured: false,
     includes: [''],
     includesEn: [''],
   });
+
+  // Load categories
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setCategories(data.filter((c: any) => c.isActive !== false));
+        }
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+    loadCategories();
+  }, []);
 
   const currencies = [
     { value: 'ILS', label: '₪ שקל', symbol: '₪' },
@@ -59,6 +84,7 @@ export default function NewDealPage() {
           price: formData.price,
           originalPrice: formData.originalPrice || null,
           nights: parseInt(formData.nights),
+          categoryId: formData.categoryId || null,
           includes: formData.includes.filter(i => i.trim()),
           includesEn: formData.includesEn.filter(i => i.trim()),
         }),
@@ -475,6 +501,25 @@ export default function NewDealPage() {
                 />
                 <span className="text-slate-700">פעיל (מוצג באתר)</span>
               </label>
+              
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  קטגוריה
+                </label>
+                <select
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="">ללא קטגוריה</option>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id.toString()}>
+                      {cat.title} {cat.titleEn ? `(${cat.titleEn})` : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
               
               <label className="flex items-center gap-3 cursor-pointer">
                 <input

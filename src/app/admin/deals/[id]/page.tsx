@@ -40,11 +40,14 @@ export default function EditDealPage() {
     tag: '',
     tagEn: '',
     tagColor: 'bg-primary-500',
+    categoryId: '',
     isActive: true,
     isFeatured: false,
     includes: [''],
     includesEn: [''],
   });
+
+  const [categories, setCategories] = useState<Array<{ id: number; title: string; titleEn: string | null }>>([]);
 
   const currencies = [
     { value: 'ILS', label: '₪ שקל', symbol: '₪' },
@@ -54,7 +57,20 @@ export default function EditDealPage() {
 
   useEffect(() => {
     fetchDeal();
+    fetchCategories();
   }, [id]);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch('/api/categories');
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setCategories(data.filter((c: any) => c.isActive !== false));
+      }
+    } catch (error) {
+      console.error('Error loading categories:', error);
+    }
+  };
 
   const fetchDeal = async () => {
     try {
@@ -79,6 +95,7 @@ export default function EditDealPage() {
         tag: data.tag || '',
         tagEn: data.tagEn || '',
         tagColor: data.tagColor || 'bg-primary-500',
+        categoryId: data.categoryId?.toString() || '',
         isActive: data.isActive ?? true,
         isFeatured: data.isFeatured ?? false,
         includes: (data.includes as string[])?.length ? data.includes as string[] : [''],
@@ -106,6 +123,7 @@ export default function EditDealPage() {
           price: formData.price,
           originalPrice: formData.originalPrice || null,
           nights: parseInt(formData.nights),
+          categoryId: formData.categoryId || null,
           includes: formData.includes.filter(i => i.trim()),
           includesEn: formData.includesEn.filter(i => i.trim()),
         }),
@@ -529,6 +547,25 @@ className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-non
                 />
                 <span className="text-slate-700">פעיל (מוצג באתר)</span>
               </label>
+              
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  קטגוריה
+                </label>
+                <select
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="">ללא קטגוריה</option>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id.toString()}>
+                      {cat.title} {cat.titleEn ? `(${cat.titleEn})` : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
               
               <label className="flex items-center gap-3 cursor-pointer">
                 <input

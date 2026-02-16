@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db, categories } from '@/db';
-import { asc } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { requireAuth } from '@/lib/auth';
 import { validateRequired, ValidationError } from '@/lib/validation';
 
@@ -37,9 +37,36 @@ export async function POST(request: Request) {
       throw error;
     }
 
+    // Generate slug if not provided
+    let slug = body.slug;
+    if (!slug) {
+      // Create slug from title (Hebrew or English)
+      const baseTitle = body.titleEn || body.title;
+      slug = baseTitle
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      
+      // Ensure uniqueness by appending number if needed
+      let uniqueSlug = slug;
+      let counter = 1;
+      while (true) {
+        const existing = await db
+          .select()
+          .from(categories)
+          .where(eq(categories.slug, uniqueSlug))
+          .limit(1);
+        if (existing.length === 0) break;
+        uniqueSlug = `${slug}-${counter}`;
+        counter++;
+      }
+      slug = uniqueSlug;
+    }
+
     const newCategory = await db.insert(categories).values({
       title: body.title,
       titleEn: body.titleEn,
+      slug: slug,
       image: body.image,
       link: body.link,
       isActive: body.isActive ?? true,

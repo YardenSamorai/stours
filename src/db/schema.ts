@@ -28,6 +28,7 @@ export const deals = pgTable('deals', {
   includesEn: json('includes_en').$type<string[]>(),
   isActive: boolean('is_active').default(true),
   isFeatured: boolean('is_featured').default(false),
+  categoryId: integer('category_id'), // Link to categories table
   order: integer('order').default(0),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
@@ -155,6 +156,7 @@ export const categories = pgTable('categories', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   titleEn: varchar('title_en', { length: 255 }),
+  slug: varchar('slug', { length: 255 }).notNull().unique(), // URL-friendly identifier
   image: text('image'),
   link: varchar('link', { length: 255 }),
   isActive: boolean('is_active').default(true),

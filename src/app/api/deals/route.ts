@@ -1,13 +1,35 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db, deals } from '@/db';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and } from 'drizzle-orm';
 import { requireAuth } from '@/lib/auth';
 import { validateRequired, validatePrice, ValidationError } from '@/lib/validation';
 
-// GET - Fetch all deals (public)
-export async function GET() {
+// GET - Fetch all deals (public) with optional category filter
+export async function GET(request: NextRequest) {
   try {
-    const allDeals = await db.select().from(deals).orderBy(desc(deals.createdAt));
+    const { searchParams } = new URL(request.url);
+    const categoryId = searchParams.get('categoryId');
+    const isActive = searchParams.get('isActive') !== 'false'; // Default to true
+
+    let query = db.select().from(deals);
+
+    // Build conditions
+    const conditions = [];
+    if (isActive) {
+      conditions.push(eq(deals.isActive, true));
+    }
+    if (categoryId) {
+      const catId = parseInt(categoryId, 10);
+      if (!isNaN(catId)) {
+        conditions.push(eq(deals.categoryId, catId));
+      }
+    }
+
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions)) as any;
+    }
+
+    const allDeals = await query.orderBy(desc(deals.createdAt));
     return NextResponse.json(allDeals);
   } catch (error) {
     console.error('Error fetching deals:', error);
@@ -75,6 +97,7 @@ export async function POST(request: Request) {
       includesEn: body.includesEn,
       isActive: body.isActive ?? true,
       isFeatured: body.isFeatured ?? false,
+      categoryId: body.categoryId ? parseInt(body.categoryId, 10) : null,
       order: body.order,
     }).returning();
     
