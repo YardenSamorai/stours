@@ -1,20 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Search, X, Check, ImageIcon } from 'lucide-react';
 import { allCategoryImages, getImagesForCategory, type CategoryImage } from '@/lib/category-images';
 
 interface CategoryImagePickerProps {
   value: string;
-  onChange: (svgDataUrl: string) => void;
+  onChange: (url: string) => void;
   categoryName?: string;
   onClose?: () => void;
-}
-
-// Convert SVG string to data URL
-function svgToDataUrl(svg: string): string {
-  const encoded = encodeURIComponent(svg);
-  return `data:image/svg+xml,${encoded}`;
 }
 
 export default function CategoryImagePicker({
@@ -128,22 +123,24 @@ export default function CategoryImagePicker({
           {filteredImages.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filteredImages.map((img) => {
-                const svgDataUrl = svgToDataUrl(img.svg);
-                const isSelected = value === svgDataUrl || value.includes(img.id);
+                const isSelected = value === img.url;
                 return (
                   <button
                     key={img.id}
                     type="button"
-                    onClick={() => onChange(svgDataUrl)}
-                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all bg-white ${
+                    onClick={() => onChange(img.url)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
                       isSelected
                         ? 'border-primary-600 ring-4 ring-primary-200'
                         : 'border-slate-200 hover:border-primary-400'
                     }`}
                   >
-                    <div
-                      className="w-full h-full"
-                      dangerouslySetInnerHTML={{ __html: img.svg }}
+                    <Image
+                      src={img.thumbnail}
+                      alt={img.description}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 25vw"
                     />
                     {isSelected && (
                       <div className="absolute inset-0 bg-primary-600/20 flex items-center justify-center">
@@ -172,7 +169,7 @@ export default function CategoryImagePicker({
         {/* Footer */}
         <div className="p-6 border-t border-slate-200 flex items-center justify-between">
           <div className="text-sm text-slate-500">
-            כל התמונות הן SVG שנוצרו בקוד - 100% ללא זכויות יוצרים
+            כל התמונות מ-<a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Unsplash</a> - חינם לשימוש
           </div>
           {onClose && (
             <button
