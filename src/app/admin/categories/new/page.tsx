@@ -15,6 +15,7 @@ export default function NewCategoryPage() {
   const [formData, setFormData] = useState({
     title: '',
     titleEn: '',
+    slug: '',
     image: '',
     link: '',
     isActive: true,
@@ -153,6 +154,24 @@ export default function NewCategoryPage() {
                   />
                 </div>
               )}
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Slug (מזהה URL) *
+                </label>
+                <input
+                  type="text"
+                  value={formData.slug}
+                  onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-') })}
+                  placeholder="beach, mountain, desert..."
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  dir="ltr"
+                  required
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  מזהה ייחודי ל-URL (רק אותיות באנגלית, מספרים ומקפים). אם לא תזין, ייווצר אוטומטית מהכותרת.
+                </p>
+              </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">

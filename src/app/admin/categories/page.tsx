@@ -146,7 +146,16 @@ export default function CategoriesAdminPage() {
               <div className="p-5">
                 <h3 className="text-lg font-bold text-slate-800 mb-1">{category.title}</h3>
                 {category.titleEn && (
-                  <p className="text-sm text-slate-500 mb-3" dir="ltr">{category.titleEn}</p>
+                  <p className="text-sm text-slate-500 mb-2" dir="ltr">{category.titleEn}</p>
+                )}
+                {category.slug ? (
+                  <p className="text-xs text-slate-400 mb-3" dir="ltr">
+                    Slug: <span className="font-mono">{category.slug}</span>
+                  </p>
+                ) : (
+                  <p className="text-xs text-amber-600 mb-3 font-medium">
+                    ⚠️ חסר slug - ערוך כדי להוסיף
+                  </p>
                 )}
 
                 {/* Actions */}

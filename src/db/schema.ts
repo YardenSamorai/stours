@@ -156,7 +156,7 @@ export const categories = pgTable('categories', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   titleEn: varchar('title_en', { length: 255 }),
-  slug: varchar('slug', { length: 255 }).notNull().unique(), // URL-friendly identifier
+  slug: varchar('slug', { length: 255 }), // URL-friendly identifier (optional for existing categories)
   image: text('image'),
   link: varchar('link', { length: 255 }),
   isActive: boolean('is_active').default(true),
