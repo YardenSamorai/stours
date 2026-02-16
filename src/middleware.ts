@@ -25,6 +25,13 @@ const isPublicRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, req) => {
   const { pathname } = req.nextUrl;
   
+  // Redirect /he/admin... or /en/admin... to /admin...
+  const localeAdminMatch = pathname.match(/^\/(he|en)(\/admin.*)$/);
+  if (localeAdminMatch) {
+    const adminPath = localeAdminMatch[2]; // e.g. "/admin" or "/admin/deals"
+    return NextResponse.redirect(new URL(adminPath, req.url));
+  }
+
   // Check if it's an admin route
   if (isProtectedRoute(req)) {
     await auth.protect();

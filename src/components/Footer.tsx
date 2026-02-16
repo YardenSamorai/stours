@@ -19,7 +19,7 @@ const TikTok = ({ className }: { className?: string }) => (
     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
   </svg>
 );
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -28,6 +28,8 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [contactPhone, setContactPhone] = useState('0525118536');
+  const [contactEmail, setContactEmail] = useState('dealtours.bookings@gmail.com');
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,6 +55,30 @@ export default function Footer() {
       setIsSubmitting(false);
     }
   };
+
+  // Load contact info from settings
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const phoneRes = await fetch('/api/site-settings?key=phone');
+        const emailRes = await fetch('/api/site-settings?key=email');
+        
+        if (phoneRes.ok) {
+          const phoneData = await phoneRes.json();
+          if (phoneData.value) setContactPhone(phoneData.value);
+        }
+        
+        if (emailRes.ok) {
+          const emailData = await emailRes.json();
+          if (emailData.value) setContactEmail(emailData.value);
+        }
+      } catch (error) {
+        console.error('Error loading contact settings:', error);
+      }
+    };
+
+    loadContactInfo();
+  }, []);
 
   const quickLinks = [
     { href: '/', label: tNav('home') },
@@ -126,14 +152,14 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                <a href="tel:0525118536" className="text-slate-400 hover:text-white transition-colors">
+                <a href={`tel:${contactPhone}`} className="text-slate-400 hover:text-white transition-colors">
                   {t('phone')}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                <a href="mailto:dealtours.bookings@gmail.com" className="text-slate-400 hover:text-white transition-colors">
-                  dealtours.bookings@gmail.com
+                <a href={`mailto:${contactEmail}`} className="text-slate-400 hover:text-white transition-colors">
+                  {contactEmail}
                 </a>
               </li>
             </ul>

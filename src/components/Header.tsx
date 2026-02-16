@@ -12,6 +12,8 @@ export default function Header() {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [phone, setPhone] = useState('0525118536');
+  const [phoneDisplay, setPhoneDisplay] = useState('03-1234567');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,30 @@ export default function Header() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Load phone from settings
+  useEffect(() => {
+    const loadPhone = async () => {
+      try {
+        const phoneRes = await fetch('/api/site-settings?key=phone');
+        const phoneDisplayRes = await fetch('/api/site-settings?key=phoneDisplay');
+        
+        if (phoneRes.ok) {
+          const phoneData = await phoneRes.json();
+          if (phoneData.value) setPhone(phoneData.value);
+        }
+        
+        if (phoneDisplayRes.ok) {
+          const phoneDisplayData = await phoneDisplayRes.json();
+          if (phoneDisplayData.value) setPhoneDisplay(phoneDisplayData.value);
+        }
+      } catch (error) {
+        console.error('Error loading phone settings:', error);
+      }
+    };
+
+    loadPhone();
   }, []);
 
   const toggleLanguage = () => {
@@ -71,11 +97,11 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-4">
             {/* Phone */}
             <a
-              href="tel:0525118536"
+              href={`tel:${phone}`}
               className="flex items-center gap-2 text-slate-600 font-medium hover:text-primary-600 transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span className="hidden xl:inline">03-1234567</span>
+              <span className="hidden xl:inline">{phoneDisplay}</span>
             </a>
 
             {/* Language Toggle */}
@@ -123,9 +149,9 @@ export default function Header() {
               ))}
               <hr className="my-3" />
               <div className="flex items-center justify-between px-4 py-2">
-                <a href="tel:0525118536" className="flex items-center gap-2 text-slate-700">
+                <a href={`tel:${phone}`} className="flex items-center gap-2 text-slate-700">
                   <Phone className="w-4 h-4" />
-                  03-1234567
+                  {phoneDisplay}
                 </a>
                 <button
                   onClick={toggleLanguage}
