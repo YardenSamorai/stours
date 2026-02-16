@@ -154,15 +154,22 @@ export default function Categories() {
                 {/* Oval Image */}
                 {categoryUrl ? (
                   <Link href={categoryUrl} className="block w-full">
-                    <div className="relative w-full aspect-[3/4] rounded-[50%/40%] overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
+                    <div className="relative w-full aspect-[3/4] rounded-[50%/40%] overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2 bg-white">
                       {category.image ? (
-                        <Image
-                          src={category.image}
-                          alt={label}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          sizes="(max-width: 768px) 30vw, 16vw"
-                        />
+                        category.image.startsWith('data:image/svg+xml') ? (
+                          <div
+                            className="w-full h-full transition-transform duration-500 group-hover:scale-110"
+                            dangerouslySetInnerHTML={{ __html: decodeURIComponent(category.image.split(',')[1] || '') }}
+                          />
+                        ) : (
+                          <Image
+                            src={category.image}
+                            alt={label}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 30vw, 16vw"
+                          />
+                        )
                       ) : (
                         <div className="w-full h-full bg-slate-200 flex items-center justify-center">
                           <span className="text-slate-400 text-xl">📷</span>
@@ -171,15 +178,22 @@ export default function Categories() {
                     </div>
                   </Link>
                 ) : (
-                  <div className="relative w-full aspect-[3/4] rounded-[50%/40%] overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
+                  <div className="relative w-full aspect-[3/4] rounded-[50%/40%] overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2 bg-white">
                       {category.image ? (
-                        <Image
-                          src={category.image}
-                          alt={label}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          sizes="(max-width: 768px) 30vw, 16vw"
-                        />
+                        category.image.startsWith('data:image/svg+xml') ? (
+                          <div
+                            className="w-full h-full transition-transform duration-500 group-hover:scale-110"
+                            dangerouslySetInnerHTML={{ __html: decodeURIComponent(category.image.split(',')[1] || '') }}
+                          />
+                        ) : (
+                          <Image
+                            src={category.image}
+                            alt={label}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 30vw, 16vw"
+                          />
+                        )
                       ) : (
                         <div className="w-full h-full bg-slate-200 flex items-center justify-center">
                           <span className="text-slate-400 text-xl">📷</span>
