@@ -84,22 +84,27 @@ export default function Categories() {
   const t = useTranslations('categories');
   const locale = useLocale();
   const isRTL = locale === 'he';
-  const [categories, setCategories] = useState<CategoryItem[]>(defaultCategories);
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setLoading(true);
         const res = await fetch('/api/categories');
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           // Filter only active categories
           const active = data.filter((c: CategoryItem) => c.isActive);
-          if (active.length > 0) {
-            setCategories(active);
-          }
+          setCategories(active);
+        } else {
+          setCategories([]);
         }
-      } catch {
-        // Keep default categories on error
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setCategories([]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCategories();
@@ -121,9 +126,17 @@ export default function Categories() {
           </p>
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="flex items-center justify-center py-12">
+            <div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+
         {/* Categories Grid - Oval Cards */}
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-5 md:gap-6">
-          {categories.map((category) => {
+        {!loading && categories.length > 0 && (
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-5 md:gap-6">
+            {categories.map((category) => {
             const label = isRTL
               ? category.title
               : category.titleEn || category.title;
@@ -190,7 +203,19 @@ export default function Categories() {
               </div>
             );
           })}
-        </div>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && categories.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-slate-500 text-lg">
+              {locale === 'he' 
+                ? 'אין קטגוריות זמינות כרגע' 
+                : 'No categories available at the moment'}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
