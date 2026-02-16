@@ -4,7 +4,8 @@ import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Save, Trash2, Loader2, ImageIcon, Upload } from 'lucide-react';
+import { ArrowRight, Save, Trash2, Loader2, ImageIcon, Upload, Images } from 'lucide-react';
+import CategoryImagePicker from '@/components/admin/CategoryImagePicker';
 
 export default function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -13,6 +14,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
   const [activeTab, setActiveTab] = useState<'he' | 'en'>('he');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [showImagePicker, setShowImagePicker] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -247,6 +249,45 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
             <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">תמונה</h2>
 
+              {/* Image Selection Options */}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowImagePicker(true)}
+                  className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-primary-200 bg-primary-50 hover:bg-primary-100 rounded-xl font-medium text-primary-700 transition-colors"
+                >
+                  <Images className="w-5 h-5" />
+                  בחר מתמונות מוכנות
+                </button>
+                <label className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-slate-300 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                  {isUploading ? (
+                    <Loader2 className="w-5 h-5 animate-spin text-primary-600" />
+                  ) : (
+                    <>
+                      <Upload className="w-5 h-5 text-slate-600" />
+                      <span className="text-sm font-medium text-slate-700">העלה מהמחשב</span>
+                    </>
+                  )}
+                </label>
+              </div>
+
+              {/* OR URL */}
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-slate-200" />
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-white px-4 text-sm text-slate-400">או</span>
+                </div>
+              </div>
+
+              {/* Image URL Input */}
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   כתובת תמונה (URL)
@@ -261,16 +302,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                 />
               </div>
 
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200" />
-                </div>
-                <div className="relative flex justify-center">
-                  <span className="bg-white px-4 text-sm text-slate-400">או</span>
-                </div>
-              </div>
-
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-primary-400 hover:bg-primary-50/50 transition-colors">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-xl cursor-pointer hover:border-primary-400 hover:bg-primary-50/50 transition-colors hidden">
                 <input
                   type="file"
                   accept="image/*"
@@ -373,6 +405,19 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
       </form>
+
+      {/* Image Picker Modal */}
+      {showImagePicker && (
+        <CategoryImagePicker
+          value={formData.image}
+          onChange={(url) => {
+            setFormData({ ...formData, image: url });
+            setShowImagePicker(false);
+          }}
+          categoryName={formData.title || formData.titleEn}
+          onClose={() => setShowImagePicker(false)}
+        />
+      )}
     </div>
   );
 }
