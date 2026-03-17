@@ -10,7 +10,7 @@ import type { Metadata } from 'next';
 import { ArticleJsonLd } from '@/components/JsonLd';
 
 export const revalidate = 0;
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 async function getBlogPost(slug: string) {
   try {
@@ -112,7 +112,15 @@ export default async function BlogPostPage({
 
   const title = isHebrew ? post.title : (post.titleEn || post.title);
   const rawContent = isHebrew ? post.content : (post.contentEn || post.content);
-  const content = DOMPurify.sanitize(rawContent);
+  const content = sanitizeHtml(rawContent, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'iframe', 'video', 'source', 'h1', 'h2']),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ['src', 'alt', 'width', 'height', 'loading', 'class', 'style'],
+      iframe: ['src', 'width', 'height', 'frameborder', 'allowfullscreen', 'allow'],
+      '*': ['class', 'style', 'dir', 'id'],
+    },
+  });
   const excerpt = isHebrew ? post.excerpt : (post.excerptEn || post.excerpt);
   const category = isHebrew ? post.category : (post.categoryEn || post.category);
 
