@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Loader2, MapPin } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { Deal } from '@/db/schema';
 import Image from 'next/image';
+import { Link } from '@/i18n/routing';
 
 const currencySymbols: Record<string, string> = {
   ILS: '₪',
@@ -139,6 +140,19 @@ export default function Destinations() {
                       <MapPin className="w-10 h-10 text-white/60" />
                     </div>
                   )}
+                  {/* Tag / Savings Badge */}
+                  <div className="absolute top-3 start-3 flex flex-col gap-1.5">
+                    {deal.tag && (
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-bold text-white ${deal.tagColor || 'bg-primary-500'}`}>
+                        {isRTL ? deal.tag : deal.tagEn || deal.tag}
+                      </span>
+                    )}
+                    {deal.originalPrice && Number(deal.originalPrice) > Number(deal.price) && (
+                      <span className="px-2.5 py-1 rounded-full text-xs font-bold text-white bg-red-500">
+                        -{Math.round(((Number(deal.originalPrice) - Number(deal.price)) / Number(deal.originalPrice)) * 100)}%
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -157,12 +171,22 @@ export default function Destinations() {
 
                   {/* Price & Book Button */}
                   <div className="flex items-center justify-between">
-                    <span className="text-xl font-black text-slate-900">
-                      {currency}{Number(deal.price).toFixed(2)}
-                    </span>
-                    <button className="px-5 py-2 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-lg text-sm font-semibold transition-all duration-200">
+                    <div>
+                      {deal.originalPrice && Number(deal.originalPrice) > Number(deal.price) && (
+                        <span className="text-sm text-slate-400 line-through block">
+                          {currency}{Number(deal.originalPrice).toFixed(0)}
+                        </span>
+                      )}
+                      <span className="text-xl font-black text-slate-900">
+                        {currency}{Number(deal.price).toFixed(0)}
+                      </span>
+                    </div>
+                    <Link
+                      href={`/destinations/${deal.id}`}
+                      className="px-5 py-2 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white rounded-lg text-sm font-semibold transition-all duration-200"
+                    >
                       {t('bookNow')}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -22,14 +22,36 @@ export default function ContactPage() {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', destination: '', message: '' });
-    }, 5000);
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const response = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to submit');
+      }
+
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ name: '', email: '', phone: '', destination: '', message: '' });
+      }, 5000);
+    } catch (error: any) {
+      setSubmitError(error.message || 'שגיאה בשליחת הטופס. אנא נסו שוב.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -213,12 +235,19 @@ export default function ContactPage() {
                       />
                     </div>
 
+                    {submitError && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                        {submitError}
+                      </div>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-500/30 flex items-center justify-center gap-2"
+                      disabled={isSubmitting}
+                      className="w-full bg-accent-500 hover:bg-accent-600 disabled:bg-slate-400 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-500/30 flex items-center justify-center gap-2"
                     >
                       <Send className="w-5 h-5" />
-                      {t('form.send')}
+                      {isSubmitting ? 'שולח...' : t('form.send')}
                     </button>
                   </form>
                 )}

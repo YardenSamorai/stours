@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, mkdir, unlink } from 'fs/promises';
 import path from 'path';
+import { requireAuth } from '@/lib/auth';
 
-// Check if Vercel Blob is available
 const hasVercelBlob = !!process.env.BLOB_READ_WRITE_TOKEN;
 
 export async function POST(request: NextRequest) {
   try {
+    const authError = await requireAuth();
+    if (authError) return authError;
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
 
@@ -87,6 +90,9 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const authError = await requireAuth();
+    if (authError) return authError;
+
     const { url } = await request.json();
 
     if (!url) {

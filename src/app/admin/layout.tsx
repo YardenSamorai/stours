@@ -15,7 +15,8 @@ import {
   Menu,
   X,
   Layers,
-  Grid3X3
+  Grid3X3,
+  UsersRound
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -26,6 +27,7 @@ const navItems = [
   { href: '/admin/services', icon: Layers, label: 'שירותים' },
   { href: '/admin/blog', icon: FileText, label: 'בלוג' },
   { href: '/admin/testimonials', icon: Star, label: 'המלצות' },
+  { href: '/admin/team', icon: UsersRound, label: 'צוות' },
   { href: '/admin/contacts', icon: MessageSquare, label: 'פניות' },
   { href: '/admin/subscribers', icon: Mail, label: 'ניוזלטר' },
   { href: '/admin/settings', icon: Settings, label: 'הגדרות האתר' },

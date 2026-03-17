@@ -1,9 +1,28 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
 import { db, blogPosts } from '@/db';
 import { eq, desc } from 'drizzle-orm';
+import type { Metadata } from 'next';
+
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dealtours.co.il';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const isHebrew = locale === 'he';
+  return {
+    title: isHebrew ? 'הבלוג שלנו - טיפים והמלצות לטיולים' : 'Our Blog - Travel Tips & Recommendations',
+    description: isHebrew
+      ? 'טיפים, המלצות וחוויות מעולם הנסיעות. כל מה שצריך לדעת לפני הטיול הבא'
+      : 'Tips, recommendations and travel experiences. Everything you need to know before your next trip',
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/blog`,
+      languages: { 'he': `${BASE_URL}/he/blog`, 'en': `${BASE_URL}/en/blog` },
+    },
+  };
+}
 
 async function getBlogPosts() {
   try {
@@ -71,12 +90,15 @@ export default async function BlogPage({
                   className="group block bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all"
                 >
                   <div className="grid lg:grid-cols-2">
-                    <div className="relative h-64 lg:h-auto">
+                    <div className="relative h-64 lg:h-auto min-h-[256px]">
                       {posts[0].image ? (
-                        <img
+                        <Image
                           src={posts[0].image}
                           alt={isHebrew ? posts[0].title : posts[0].titleEn || posts[0].title}
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          priority
                         />
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600" />
@@ -130,10 +152,12 @@ export default async function BlogPage({
                     >
                       <div className="relative h-48">
                         {post.image ? (
-                          <img
+                          <Image
                             src={post.image}
                             alt={isHebrew ? post.title : post.titleEn || post.title}
-                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, 33vw"
                           />
                         ) : (
                           <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600" />

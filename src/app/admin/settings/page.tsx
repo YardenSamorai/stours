@@ -12,11 +12,27 @@ import {
   MessageSquare,
   Image as ImageIcon,
   Loader2,
-  CheckCircle
+  CheckCircle,
+  Info,
+  Plus,
+  Trash2
 } from 'lucide-react';
 
+interface StatItem {
+  value: string;
+  label: string;
+  labelEn: string;
+}
+
+interface ValueItem {
+  title: string;
+  titleEn: string;
+  description: string;
+  descriptionEn: string;
+}
+
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'contact' | 'social'>('general');
+  const [activeTab, setActiveTab] = useState<'general' | 'hero' | 'contact' | 'social' | 'about'>('general');
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -27,7 +43,7 @@ export default function SettingsPage() {
     siteDescription: 'סוכנות הנסיעות המובילה בישראל',
     siteDescriptionEn: 'Israel\'s leading travel agency',
     phone: '052-511-8536',
-    phoneDisplay: '03-1234567', // Phone number displayed in header
+    phoneDisplay: '03-1234567',
     email: 'dealtours.bookings@gmail.com',
     address: 'רחוב דיזנגוף 50, תל אביב',
     addressEn: '50 Dizengoff St, Tel Aviv',
@@ -43,9 +59,40 @@ export default function SettingsPage() {
     facebookUrl: 'https://facebook.com/dealtours',
     instagramUrl: 'https://instagram.com/dealtours',
     whatsappNumber: '972525118536',
+
+    // About
+    aboutStoryHeading: 'יותר מ-15 שנים של חוויות בלתי נשכחות',
+    aboutStoryHeadingEn: 'Over 15 years of unforgettable experiences',
+    aboutStoryText: '<p>דיל טורס נולדה מתוך תשוקה אמיתית לטיולים. הקמנו את החברה לפני למעלה מ-15 שנה עם חזון ברור: להפוך כל חלום של טיול למציאות.</p><p>אנחנו מאמינים שטיול הוא לא רק חופשה - זו חוויה שמשנה את החיים. לכן אנחנו שמים דגש על כל פרט קטן, מרגע התכנון ועד החזרה הביתה.</p><p>עם צוות של מומחים מנוסים ותשוקה אמיתית לשירות, אנחנו כאן כדי להבטיח שהטיול שלכם יהיה מושלם.</p>',
+    aboutStoryTextEn: '<p>Deal Tours was born out of a true passion for travel. We established the company over 15 years ago with a clear vision: to turn every travel dream into reality.</p>',
+    aboutStoryImage: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80',
+    aboutBadgeNumber: '15+',
+    aboutBadgeLabel: 'שנות ניסיון',
+    aboutBadgeLabelEn: 'Years of Experience',
+    aboutMissionTitle: 'המשימה שלנו',
+    aboutMissionTitleEn: 'Our Mission',
+    aboutMissionText: '',
+    aboutMissionTextEn: '',
+    aboutVisionTitle: 'החזון שלנו',
+    aboutVisionTitleEn: 'Our Vision',
+    aboutVisionText: '',
+    aboutVisionTextEn: '',
   });
 
-  // Load settings from API
+  const [aboutStats, setAboutStats] = useState<StatItem[]>([
+    { value: '15,000+', label: 'לקוחות מרוצים', labelEn: 'Happy Customers' },
+    { value: '120+', label: 'יעדים', labelEn: 'Destinations' },
+    { value: '15', label: 'שנות ניסיון', labelEn: 'Years of Experience' },
+    { value: '98%', label: 'שביעות רצון', labelEn: 'Satisfaction' },
+  ]);
+
+  const [aboutValues, setAboutValues] = useState<ValueItem[]>([
+    { title: 'אהבה לטיולים', titleEn: 'Love for Travel', description: 'אנחנו מטיילים בעצמנו ומביאים את החוויות שלנו אליכם', descriptionEn: 'We travel ourselves and bring our experiences to you' },
+    { title: 'אמינות', titleEn: 'Reliability', description: 'שקיפות מלאה במחירים ובתנאים, ללא הפתעות', descriptionEn: 'Full transparency in prices and terms, no surprises' },
+    { title: 'שירות אישי', titleEn: 'Personal Service', description: 'כל לקוח מקבל יחס אישי ומותאם לצרכים שלו', descriptionEn: 'Every customer gets personalized attention' },
+    { title: 'מומחיות גלובלית', titleEn: 'Global Expertise', description: 'ניסיון עשיר ביעדים ברחבי העולם', descriptionEn: 'Rich experience in destinations worldwide' },
+  ]);
+
   useEffect(() => {
     const loadSettings = async () => {
       try {
@@ -53,7 +100,6 @@ export default function SettingsPage() {
         if (!response.ok) throw new Error('Failed to load settings');
         const data = await response.json();
         
-        // Map API response to settings state
         if (data) {
           setSettings((prev) => ({
             ...prev,
@@ -73,7 +119,34 @@ export default function SettingsPage() {
             facebookUrl: data.facebookUrl?.value || prev.facebookUrl,
             instagramUrl: data.instagramUrl?.value || prev.instagramUrl,
             whatsappNumber: data.whatsappNumber?.value || prev.whatsappNumber,
+            aboutStoryHeading: data.aboutStoryHeading?.value || prev.aboutStoryHeading,
+            aboutStoryHeadingEn: data.aboutStoryHeading?.valueEn || prev.aboutStoryHeadingEn,
+            aboutStoryText: data.aboutStoryText?.value || prev.aboutStoryText,
+            aboutStoryTextEn: data.aboutStoryText?.valueEn || prev.aboutStoryTextEn,
+            aboutStoryImage: data.aboutStoryImage?.value || prev.aboutStoryImage,
+            aboutBadgeNumber: data.aboutBadgeNumber?.value || prev.aboutBadgeNumber,
+            aboutBadgeLabel: data.aboutBadgeLabel?.value || prev.aboutBadgeLabel,
+            aboutBadgeLabelEn: data.aboutBadgeLabel?.valueEn || prev.aboutBadgeLabelEn,
+            aboutMissionTitle: data.aboutMissionTitle?.value || prev.aboutMissionTitle,
+            aboutMissionTitleEn: data.aboutMissionTitle?.valueEn || prev.aboutMissionTitleEn,
+            aboutMissionText: data.aboutMissionText?.value || prev.aboutMissionText,
+            aboutMissionTextEn: data.aboutMissionText?.valueEn || prev.aboutMissionTextEn,
+            aboutVisionTitle: data.aboutVisionTitle?.value || prev.aboutVisionTitle,
+            aboutVisionTitleEn: data.aboutVisionTitle?.valueEn || prev.aboutVisionTitleEn,
+            aboutVisionText: data.aboutVisionText?.value || prev.aboutVisionText,
+            aboutVisionTextEn: data.aboutVisionText?.valueEn || prev.aboutVisionTextEn,
           }));
+
+          if (data.aboutStats?.value) {
+            try {
+              setAboutStats(JSON.parse(data.aboutStats.value));
+            } catch { /* keep defaults */ }
+          }
+          if (data.aboutValues?.value) {
+            try {
+              setAboutValues(JSON.parse(data.aboutValues.value));
+            } catch { /* keep defaults */ }
+          }
         }
       } catch (error) {
         console.error('Error loading settings:', error);
@@ -90,7 +163,7 @@ export default function SettingsPage() {
     setSaveSuccess(false);
     
     try {
-      const settingsToSave = {
+      const settingsToSave: Record<string, { value: string; valueEn?: string; group: string; label: string; type?: string }> = {
         siteName: { value: settings.siteName, group: 'general', label: 'שם האתר' },
         siteDescription: { value: settings.siteDescription, valueEn: settings.siteDescriptionEn, group: 'general', label: 'תיאור האתר' },
         phone: { value: settings.phone, group: 'contact', label: 'מספר טלפון (קישור)' },
@@ -103,6 +176,17 @@ export default function SettingsPage() {
         facebookUrl: { value: settings.facebookUrl, group: 'social', label: 'Facebook URL' },
         instagramUrl: { value: settings.instagramUrl, group: 'social', label: 'Instagram URL' },
         whatsappNumber: { value: settings.whatsappNumber, group: 'social', label: 'WhatsApp Number' },
+        aboutStoryHeading: { value: settings.aboutStoryHeading, valueEn: settings.aboutStoryHeadingEn, group: 'about', label: 'כותרת סיפור' },
+        aboutStoryText: { value: settings.aboutStoryText, valueEn: settings.aboutStoryTextEn, group: 'about', label: 'טקסט סיפור', type: 'html' },
+        aboutStoryImage: { value: settings.aboutStoryImage, group: 'about', label: 'תמונת סיפור', type: 'image' },
+        aboutBadgeNumber: { value: settings.aboutBadgeNumber, group: 'about', label: 'מספר תג' },
+        aboutBadgeLabel: { value: settings.aboutBadgeLabel, valueEn: settings.aboutBadgeLabelEn, group: 'about', label: 'תווית תג' },
+        aboutMissionTitle: { value: settings.aboutMissionTitle, valueEn: settings.aboutMissionTitleEn, group: 'about', label: 'כותרת משימה' },
+        aboutMissionText: { value: settings.aboutMissionText, valueEn: settings.aboutMissionTextEn, group: 'about', label: 'טקסט משימה' },
+        aboutVisionTitle: { value: settings.aboutVisionTitle, valueEn: settings.aboutVisionTitleEn, group: 'about', label: 'כותרת חזון' },
+        aboutVisionText: { value: settings.aboutVisionText, valueEn: settings.aboutVisionTextEn, group: 'about', label: 'טקסט חזון' },
+        aboutStats: { value: JSON.stringify(aboutStats), group: 'about', label: 'סטטיסטיקות', type: 'json' },
+        aboutValues: { value: JSON.stringify(aboutValues), group: 'about', label: 'ערכים', type: 'json' },
       };
 
       const response = await fetch('/api/site-settings', {
@@ -128,6 +212,7 @@ export default function SettingsPage() {
     { id: 'hero', label: 'Hero', icon: ImageIcon },
     { id: 'contact', label: 'פרטי קשר', icon: Phone },
     { id: 'social', label: 'רשתות חברתיות', icon: Facebook },
+    { id: 'about', label: 'אודות', icon: Info },
   ];
 
   if (isLoading) {
@@ -450,6 +535,305 @@ export default function SettingsPage() {
               <p className="text-xs text-slate-500 mt-1">
                 דוגמה: 972525118536 (ללא מקף או רווח)
               </p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'about' && (
+          <div className="space-y-8">
+            {/* Story Section */}
+            <div className="space-y-6">
+              <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+                סיפור החברה
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">כותרת (עברית)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutStoryHeading}
+                    onChange={(e) => setSettings({ ...settings, aboutStoryHeading: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">כותרת (English)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutStoryHeadingEn}
+                    onChange={(e) => setSettings({ ...settings, aboutStoryHeadingEn: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט (עברית) — HTML</label>
+                  <textarea
+                    value={settings.aboutStoryText}
+                    onChange={(e) => setSettings({ ...settings, aboutStoryText: e.target.value })}
+                    rows={6}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none font-mono text-sm"
+                    placeholder="<p>פסקה ראשונה</p><p>פסקה שנייה</p>"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">ניתן לכתוב HTML (תגיות p, strong, em וכו&apos;)</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט (English) — HTML</label>
+                  <textarea
+                    value={settings.aboutStoryTextEn}
+                    onChange={(e) => setSettings({ ...settings, aboutStoryTextEn: e.target.value })}
+                    rows={6}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none font-mono text-sm"
+                    dir="ltr"
+                    placeholder="<p>First paragraph</p><p>Second paragraph</p>"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">תמונת סיפור</label>
+                <input
+                  type="url"
+                  value={settings.aboutStoryImage}
+                  onChange={(e) => setSettings({ ...settings, aboutStoryImage: e.target.value })}
+                  placeholder="https://..."
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  dir="ltr"
+                />
+                {settings.aboutStoryImage && (
+                  <img src={settings.aboutStoryImage} alt="Story Preview" className="mt-3 w-48 h-32 object-cover rounded-xl" />
+                )}
+              </div>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">מספר תג (למשל 15+)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutBadgeNumber}
+                    onChange={(e) => setSettings({ ...settings, aboutBadgeNumber: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">תווית תג (עברית)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutBadgeLabel}
+                    onChange={(e) => setSettings({ ...settings, aboutBadgeLabel: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">תווית תג (English)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutBadgeLabelEn}
+                    onChange={(e) => setSettings({ ...settings, aboutBadgeLabelEn: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Mission & Vision */}
+            <div className="space-y-6">
+              <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+                משימה וחזון
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">כותרת משימה (עברית)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutMissionTitle}
+                    onChange={(e) => setSettings({ ...settings, aboutMissionTitle: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">כותרת משימה (English)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutMissionTitleEn}
+                    onChange={(e) => setSettings({ ...settings, aboutMissionTitleEn: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט משימה (עברית)</label>
+                  <textarea
+                    value={settings.aboutMissionText}
+                    onChange={(e) => setSettings({ ...settings, aboutMissionText: e.target.value })}
+                    rows={4}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט משימה (English)</label>
+                  <textarea
+                    value={settings.aboutMissionTextEn}
+                    onChange={(e) => setSettings({ ...settings, aboutMissionTextEn: e.target.value })}
+                    rows={4}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">כותרת חזון (עברית)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutVisionTitle}
+                    onChange={(e) => setSettings({ ...settings, aboutVisionTitle: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">כותרת חזון (English)</label>
+                  <input
+                    type="text"
+                    value={settings.aboutVisionTitleEn}
+                    onChange={(e) => setSettings({ ...settings, aboutVisionTitleEn: e.target.value })}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט חזון (עברית)</label>
+                  <textarea
+                    value={settings.aboutVisionText}
+                    onChange={(e) => setSettings({ ...settings, aboutVisionText: e.target.value })}
+                    rows={4}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט חזון (English)</label>
+                  <textarea
+                    value={settings.aboutVisionTextEn}
+                    onChange={(e) => setSettings({ ...settings, aboutVisionTextEn: e.target.value })}
+                    rows={4}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Values */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+                <h2 className="text-lg font-semibold text-slate-800">ערכים</h2>
+                <button
+                  type="button"
+                  onClick={() => setAboutValues([...aboutValues, { title: '', titleEn: '', description: '', descriptionEn: '' }])}
+                  className="inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700"
+                >
+                  <Plus className="w-4 h-4" /> הוסף ערך
+                </button>
+              </div>
+              {aboutValues.map((val, idx) => (
+                <div key={idx} className="p-4 border border-slate-200 rounded-xl space-y-3 relative">
+                  <button
+                    type="button"
+                    onClick={() => setAboutValues(aboutValues.filter((_, i) => i !== idx))}
+                    className="absolute top-3 left-3 text-red-400 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      value={val.title}
+                      onChange={(e) => { const c = [...aboutValues]; c[idx] = { ...c[idx], title: e.target.value }; setAboutValues(c); }}
+                      placeholder="כותרת (עברית)"
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                    />
+                    <input
+                      type="text"
+                      value={val.titleEn}
+                      onChange={(e) => { const c = [...aboutValues]; c[idx] = { ...c[idx], titleEn: e.target.value }; setAboutValues(c); }}
+                      placeholder="Title (English)"
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                      dir="ltr"
+                    />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <textarea
+                      value={val.description}
+                      onChange={(e) => { const c = [...aboutValues]; c[idx] = { ...c[idx], description: e.target.value }; setAboutValues(c); }}
+                      placeholder="תיאור (עברית)"
+                      rows={2}
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm resize-none"
+                    />
+                    <textarea
+                      value={val.descriptionEn}
+                      onChange={(e) => { const c = [...aboutValues]; c[idx] = { ...c[idx], descriptionEn: e.target.value }; setAboutValues(c); }}
+                      placeholder="Description (English)"
+                      rows={2}
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm resize-none"
+                      dir="ltr"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Stats */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+                <h2 className="text-lg font-semibold text-slate-800">סטטיסטיקות</h2>
+                <button
+                  type="button"
+                  onClick={() => setAboutStats([...aboutStats, { value: '', label: '', labelEn: '' }])}
+                  className="inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700"
+                >
+                  <Plus className="w-4 h-4" /> הוסף סטטיסטיקה
+                </button>
+              </div>
+              {aboutStats.map((stat, idx) => (
+                <div key={idx} className="p-4 border border-slate-200 rounded-xl relative">
+                  <button
+                    type="button"
+                    onClick={() => setAboutStats(aboutStats.filter((_, i) => i !== idx))}
+                    className="absolute top-3 left-3 text-red-400 hover:text-red-600"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                  <div className="grid md:grid-cols-3 gap-3">
+                    <input
+                      type="text"
+                      value={stat.value}
+                      onChange={(e) => { const c = [...aboutStats]; c[idx] = { ...c[idx], value: e.target.value }; setAboutStats(c); }}
+                      placeholder="ערך (למשל 15,000+)"
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                    />
+                    <input
+                      type="text"
+                      value={stat.label}
+                      onChange={(e) => { const c = [...aboutStats]; c[idx] = { ...c[idx], label: e.target.value }; setAboutStats(c); }}
+                      placeholder="תווית (עברית)"
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                    />
+                    <input
+                      type="text"
+                      value={stat.labelEn}
+                      onChange={(e) => { const c = [...aboutStats]; c[idx] = { ...c[idx], labelEn: e.target.value }; setAboutStats(c); }}
+                      placeholder="Label (English)"
+                      className="px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                      dir="ltr"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

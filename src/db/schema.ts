@@ -165,6 +165,20 @@ export const categories = pgTable('categories', {
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
+// Team Members Table
+export const teamMembers = pgTable('team_members', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 100 }).notNull(),
+  nameEn: varchar('name_en', { length: 100 }),
+  role: varchar('role', { length: 100 }),
+  roleEn: varchar('role_en', { length: 100 }),
+  image: text('image'),
+  isActive: boolean('is_active').default(true),
+  order: integer('order').default(0),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 // Type exports
 export type Category = typeof categories.$inferSelect;
 export type NewCategory = typeof categories.$inferInsert;
@@ -179,3 +193,5 @@ export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type NewService = typeof services.$inferInsert;
 export type SectionSetting = typeof sectionSettings.$inferSelect;
+export type TeamMember = typeof teamMembers.$inferSelect;
+export type NewTeamMember = typeof teamMembers.$inferInsert;

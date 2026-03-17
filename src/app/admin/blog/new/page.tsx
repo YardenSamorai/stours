@@ -37,7 +37,7 @@ export default function NewBlogPostPage() {
   const generateSlug = (title: string) => {
     return title
       .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
+      .replace(/[^a-zA-Z0-9\u0590-\u05FF\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .trim();
