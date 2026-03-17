@@ -4,11 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar, MapPin, Star, Clock, Check, ArrowRight, ArrowLeft, Phone, MessageCircle, Flame, Shield, Award, CreditCard } from 'lucide-react';
-import { db, deals } from '@/db';
+import { db, deals, siteSettings } from '@/db';
 import { eq, and, ne, desc } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import { ProductJsonLd } from '@/components/JsonLd';
 import StickyDealBar from '@/components/StickyDealBar';
+
+export const revalidate = 0;
 
 async function getDeal(id: number) {
   try {
@@ -87,6 +89,13 @@ export default async function DealDetailPage({
 
   const relatedDeals = await getRelatedDeals(deal.id, deal.categoryId);
 
+  const contactRows = await db.select().from(siteSettings).where(eq(siteSettings.group, 'contact'));
+  const socialRows = await db.select().from(siteSettings).where(eq(siteSettings.group, 'social'));
+  const allSettings: Record<string, string> = {};
+  [...contactRows, ...socialRows].forEach(r => { if (r.value) allSettings[r.key] = r.value; });
+  const sitePhone = allSettings.phone || '0525118536';
+  const siteWhatsapp = allSettings.whatsappNumber || '972525118536';
+
   const title = isHebrew ? deal.title : (deal.titleEn || deal.title);
   const destination = isHebrew ? deal.destination : (deal.destinationEn || deal.destination);
   const description = isHebrew ? deal.description : (deal.descriptionEn || deal.description);
@@ -115,8 +124,8 @@ export default async function DealDetailPage({
       <StickyDealBar
         dealTitle={title}
         price={formatPrice(price)}
-        whatsappUrl={`https://wa.me/972525118536?text=${whatsappMessage}`}
-        phoneNumber="0525118536"
+        whatsappUrl={`https://wa.me/${siteWhatsapp}?text=${whatsappMessage}`}
+        phoneNumber={sitePhone}
         isHebrew={isHebrew}
       />
       <ProductJsonLd
@@ -329,7 +338,7 @@ export default async function DealDetailPage({
                   {/* CTAs */}
                   <div className="space-y-3">
                     <a
-                      href={`https://wa.me/972525118536?text=${whatsappMessage}`}
+                      href={`https://wa.me/${siteWhatsapp}?text=${whatsappMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-bold text-lg transition-all hover:shadow-lg"
@@ -338,7 +347,7 @@ export default async function DealDetailPage({
                       {isHebrew ? 'שלחו הודעה בוואטסאפ' : 'WhatsApp Us'}
                     </a>
                     <a
-                      href="tel:0525118536"
+                      href={`tel:${sitePhone}`}
                       className="w-full flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white py-4 rounded-xl font-bold text-lg transition-all hover:shadow-lg"
                     >
                       <Phone className="w-5 h-5" />

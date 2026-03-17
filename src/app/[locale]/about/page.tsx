@@ -5,6 +5,8 @@ import type { Metadata } from 'next';
 import { db, siteSettings, teamMembers } from '@/db';
 import { eq, asc } from 'drizzle-orm';
 
+export const revalidate = 0;
+
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dealtours.co.il';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

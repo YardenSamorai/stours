@@ -14,6 +14,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [phone, setPhone] = useState('0525118536');
   const [phoneDisplay, setPhoneDisplay] = useState('03-1234567');
+  const [whatsappNumber, setWhatsappNumber] = useState('972525118536');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +39,12 @@ export default function Header() {
         if (phoneDisplayRes.ok) {
           const phoneDisplayData = await phoneDisplayRes.json();
           if (phoneDisplayData.value) setPhoneDisplay(phoneDisplayData.value);
+        }
+
+        const waRes = await fetch('/api/site-settings?key=whatsappNumber');
+        if (waRes.ok) {
+          const waData = await waRes.json();
+          if (waData.value) setWhatsappNumber(waData.value);
         }
       } catch (error) {
         console.error('Error loading phone settings:', error);
@@ -106,7 +113,7 @@ export default function Header() {
 
             {/* WhatsApp */}
             <a
-              href="https://wa.me/972525118536"
+              href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-green-600 font-medium hover:text-green-700 transition-colors"

@@ -3,11 +3,20 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { Car, Building2, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function BookingServices() {
   const t = useTranslations('bookingServices');
   const locale = useLocale();
   const isRTL = locale === 'he';
+  const [waNumber, setWaNumber] = useState('972525118536');
+
+  useEffect(() => {
+    fetch('/api/site-settings?key=whatsappNumber')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d?.value) setWaNumber(d.value); })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="py-20 bg-slate-50">
@@ -30,7 +39,7 @@ export default function BookingServices() {
                 {t('carDescription')}
               </p>
               <a
-                href="https://wa.me/972525118536?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%94%D7%A9%D7%9B%D7%A8%D7%AA%20%D7%A8%D7%9B%D7%91"
+                href={`https://wa.me/${waNumber}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%94%D7%A9%D7%9B%D7%A8%D7%AA%20%D7%A8%D7%9B%D7%91`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 font-semibold text-slate-800 group/btn hover:gap-3 transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -77,7 +86,7 @@ export default function BookingServices() {
                 {t('hotelDescription')}
               </p>
               <a
-                href="https://wa.me/972525118536?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%94%D7%96%D7%9E%D7%A0%D7%AA%20%D7%9E%D7%9C%D7%95%D7%9F"
+                href={`https://wa.me/${waNumber}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%94%D7%96%D7%9E%D7%A0%D7%AA%20%D7%9E%D7%9C%D7%95%D7%9F`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 font-semibold text-slate-800 group/btn hover:gap-3 transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}

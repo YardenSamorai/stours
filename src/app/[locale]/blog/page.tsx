@@ -7,6 +7,8 @@ import { db, blogPosts } from '@/db';
 import { eq, desc } from 'drizzle-orm';
 import type { Metadata } from 'next';
 
+export const revalidate = 0;
+
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dealtours.co.il';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

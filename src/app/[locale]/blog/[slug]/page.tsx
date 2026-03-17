@@ -8,6 +8,8 @@ import { db, blogPosts } from '@/db';
 import { eq, and, desc, ne } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import { ArticleJsonLd } from '@/components/JsonLd';
+
+export const revalidate = 0;
 import DOMPurify from 'isomorphic-dompurify';
 
 async function getBlogPost(slug: string) {

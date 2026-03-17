@@ -15,7 +15,8 @@ import {
   CheckCircle,
   Info,
   Plus,
-  Trash2
+  Trash2,
+  Clock
 } from 'lucide-react';
 
 interface StatItem {
@@ -47,6 +48,10 @@ export default function SettingsPage() {
     email: 'dealtours.bookings@gmail.com',
     address: 'רחוב דיזנגוף 50, תל אביב',
     addressEn: '50 Dizengoff St, Tel Aviv',
+    businessHours: 'א׳-ה׳ 09:00-19:00',
+    businessHoursEn: 'Sun-Thu 09:00-19:00',
+    businessHoursFriday: 'ו׳ 09:00-13:00',
+    businessHoursFridayEn: 'Fri 09:00-13:00',
     
     // Hero
     heroTitle: 'גלה את העולם',
@@ -117,6 +122,10 @@ export default function SettingsPage() {
             email: data.email?.value || prev.email,
             address: data.address?.value || prev.address,
             addressEn: data.address?.valueEn || prev.addressEn,
+            businessHours: data.businessHours?.value || prev.businessHours,
+            businessHoursEn: data.businessHours?.valueEn || prev.businessHoursEn,
+            businessHoursFriday: data.businessHoursFriday?.value || prev.businessHoursFriday,
+            businessHoursFridayEn: data.businessHoursFriday?.valueEn || prev.businessHoursFridayEn,
             heroTitle: data.heroTitle?.value || prev.heroTitle,
             heroTitleEn: data.heroTitle?.valueEn || prev.heroTitleEn,
             heroSubtitle: data.heroSubtitle?.value || prev.heroSubtitle,
@@ -180,6 +189,8 @@ export default function SettingsPage() {
         phoneDisplay: { value: settings.phoneDisplay, group: 'contact', label: 'מספר טלפון (תצוגה)' },
         email: { value: settings.email, group: 'contact', label: 'אימייל' },
         address: { value: settings.address, valueEn: settings.addressEn, group: 'contact', label: 'כתובת' },
+        businessHours: { value: settings.businessHours, valueEn: settings.businessHoursEn, group: 'contact', label: 'שעות פעילות (א-ה)' },
+        businessHoursFriday: { value: settings.businessHoursFriday, valueEn: settings.businessHoursFridayEn, group: 'contact', label: 'שעות פעילות (שישי)' },
         heroTitle: { value: settings.heroTitle, valueEn: settings.heroTitleEn, group: 'hero', label: 'כותרת Hero' },
         heroSubtitle: { value: settings.heroSubtitle, valueEn: settings.heroSubtitleEn, group: 'hero', label: 'תת כותרת Hero' },
         heroImage: { value: settings.heroImage, group: 'hero', label: 'תמונת Hero', type: 'image' },
@@ -522,6 +533,68 @@ export default function SettingsPage() {
                 />
               </div>
             </div>
+
+            <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200 pt-4">
+              <Clock className="w-5 h-5 inline ml-2" />
+              שעות פעילות
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  ראשון - חמישי (עברית)
+                </label>
+                <input
+                  type="text"
+                  value={settings.businessHours}
+                  onChange={(e) => setSettings({ ...settings, businessHours: e.target.value })}
+                  placeholder="א׳-ה׳ 09:00-19:00"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Sunday - Thursday (English)
+                </label>
+                <input
+                  type="text"
+                  value={settings.businessHoursEn}
+                  onChange={(e) => setSettings({ ...settings, businessHoursEn: e.target.value })}
+                  placeholder="Sun-Thu 09:00-19:00"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  dir="ltr"
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  שישי (עברית)
+                </label>
+                <input
+                  type="text"
+                  value={settings.businessHoursFriday}
+                  onChange={(e) => setSettings({ ...settings, businessHoursFriday: e.target.value })}
+                  placeholder="ו׳ 09:00-13:00"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Friday (English)
+                </label>
+                <input
+                  type="text"
+                  value={settings.businessHoursFridayEn}
+                  onChange={(e) => setSettings({ ...settings, businessHoursFridayEn: e.target.value })}
+                  placeholder="Fri 09:00-13:00"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  dir="ltr"
+                />
+              </div>
+            </div>
+            <p className="text-xs text-slate-500">השעות מוצגות בדף צור קשר. השאר ריק אם אין שעות מיוחדות ביום שישי.</p>
           </div>
         )}
 

@@ -5,6 +5,8 @@ import { eq, and, desc } from 'drizzle-orm';
 import { useTranslations } from 'next-intl';
 import CategoryDeals from '@/components/CategoryDeals';
 
+export const revalidate = 0;
+
 export async function generateStaticParams() {
   const allCategories = await db
     .select({ slug: categories.slug })
