@@ -89,13 +89,13 @@ export default function TestimonialForm() {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Trigger Button — rendered in-flow, not floating (positioned by parent) */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 start-6 z-40 flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+        className="fixed bottom-20 start-6 z-40 flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-4 py-2.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group text-sm"
       >
-        <MessageSquareQuote className="w-5 h-5" />
-        <span className="font-medium">{texts.button}</span>
+        <MessageSquareQuote className="w-4 h-4" />
+        <span className="font-medium hidden sm:inline">{texts.button}</span>
       </button>
 
       {/* Modal Overlay */}
