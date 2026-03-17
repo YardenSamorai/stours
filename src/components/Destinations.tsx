@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations, useLocale } from 'next-intl';
-import { ArrowLeft, ArrowRight, Loader2, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2, MapPin, Calendar, Flame } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import type { Deal } from '@/db/schema';
 import Image from 'next/image';
@@ -163,10 +163,26 @@ export default function Destinations() {
                   </h3>
 
                   {/* Nights & Reviews */}
-                  <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
                     <span>{deal.nights || 1} {t('nights')}</span>
                     <span className="text-slate-300">|</span>
                     <span>{deal.reviewsCount || 0} {t('reviews')}</span>
+                  </div>
+
+                  {/* Urgency: departure date + spots left */}
+                  <div className="flex flex-col gap-1 mb-3">
+                    {deal.departureDate && (
+                      <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                        <Calendar className="w-3 h-3" />
+                        <span>{new Date(deal.departureDate).toLocaleDateString(isRTL ? 'he-IL' : 'en-US', { day: 'numeric', month: 'short' })}</span>
+                      </div>
+                    )}
+                    {deal.spotsLeft != null && deal.spotsLeft > 0 && deal.spotsLeft <= 10 && (
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-red-600">
+                        <Flame className="w-3 h-3" />
+                        <span>{isRTL ? `נותרו ${deal.spotsLeft} מקומות בלבד!` : `Only ${deal.spotsLeft} spots left!`}</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Price & Book Button */}

@@ -3,11 +3,12 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar, MapPin, Star, Clock, Check, ArrowRight, ArrowLeft, Phone, MessageCircle } from 'lucide-react';
+import { Calendar, MapPin, Star, Clock, Check, ArrowRight, ArrowLeft, Phone, MessageCircle, Flame, Shield, Award, CreditCard } from 'lucide-react';
 import { db, deals } from '@/db';
 import { eq, and, ne, desc } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import { ProductJsonLd } from '@/components/JsonLd';
+import StickyDealBar from '@/components/StickyDealBar';
 
 async function getDeal(id: number) {
   try {
@@ -22,12 +23,20 @@ async function getDeal(id: number) {
 
 async function getRelatedDeals(currentId: number, categoryId: number | null) {
   try {
-    const related = await db.select()
+    if (categoryId) {
+      const sameCat = await db.select()
+        .from(deals)
+        .where(and(eq(deals.isActive, true), ne(deals.id, currentId), eq(deals.categoryId, categoryId)))
+        .orderBy(desc(deals.createdAt))
+        .limit(3);
+      if (sameCat.length > 0) return sameCat;
+    }
+    const fallback = await db.select()
       .from(deals)
       .where(and(eq(deals.isActive, true), ne(deals.id, currentId)))
       .orderBy(desc(deals.createdAt))
       .limit(3);
-    return related;
+    return fallback;
   } catch {
     return [];
   }
@@ -103,6 +112,13 @@ export default async function DealDetailPage({
 
   return (
     <>
+      <StickyDealBar
+        dealTitle={title}
+        price={formatPrice(price)}
+        whatsappUrl={`https://wa.me/972525118536?text=${whatsappMessage}`}
+        phoneNumber="0525118536"
+        isHebrew={isHebrew}
+      />
       <ProductJsonLd
         name={title}
         description={description}
@@ -300,6 +316,16 @@ export default async function DealDetailPage({
                     )}
                   </div>
 
+                  {/* Urgency */}
+                  {deal.spotsLeft != null && deal.spotsLeft > 0 && deal.spotsLeft <= 10 && (
+                    <div className="flex items-center gap-2 p-3 bg-red-50 rounded-xl mb-4">
+                      <Flame className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      <span className="text-sm font-bold text-red-700">
+                        {isHebrew ? `נותרו ${deal.spotsLeft} מקומות בלבד!` : `Only ${deal.spotsLeft} spots left!`}
+                      </span>
+                    </div>
+                  )}
+
                   {/* CTAs */}
                   <div className="space-y-3">
                     <a
@@ -324,6 +350,21 @@ export default async function DealDetailPage({
                     >
                       {isHebrew ? 'השאירו פרטים' : 'Contact Us'}
                     </Link>
+                  </div>
+
+                  {/* Trust Badges */}
+                  <div className="mt-5 pt-5 border-t border-slate-100 space-y-2.5">
+                    {[
+                      { icon: Shield, text: isHebrew ? 'הזמנה מאובטחת' : 'Secure Booking' },
+                      { icon: Clock, text: isHebrew ? 'ביטול חינם עד 48 שעות' : 'Free cancellation up to 48h' },
+                      { icon: Award, text: isHebrew ? '15+ שנות ניסיון' : '15+ years experience' },
+                      { icon: CreditCard, text: isHebrew ? 'תשלום בכל האמצעים' : 'All payment methods' },
+                    ].map((badge, i) => (
+                      <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
+                        <badge.icon className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                        <span>{badge.text}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

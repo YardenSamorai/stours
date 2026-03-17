@@ -29,12 +29,17 @@ export default function BookingServices() {
               <p className="text-slate-500 leading-relaxed text-sm md:text-base mb-5">
                 {t('carDescription')}
               </p>
-              <button className={`inline-flex items-center gap-2 font-semibold text-slate-800 group/btn hover:gap-3 transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <a
+                href="https://wa.me/972525118536?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%94%D7%A9%D7%9B%D7%A8%D7%AA%20%D7%A8%D7%9B%D7%91"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 font-semibold text-slate-800 group/btn hover:gap-3 transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
                 {t('explore')}
                 <span className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center group-hover/btn:bg-primary-700 transition-colors">
                   <ArrowRight className={`w-4 h-4 text-white ${isRTL ? 'rotate-180' : ''}`} />
                 </span>
-              </button>
+              </a>
             </div>
 
             {/* Small decorative curl between cards */}
@@ -71,12 +76,17 @@ export default function BookingServices() {
               <p className="text-slate-500 leading-relaxed text-sm md:text-base mb-5">
                 {t('hotelDescription')}
               </p>
-              <button className={`inline-flex items-center gap-2 font-semibold text-slate-800 group/btn hover:gap-3 transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <a
+                href="https://wa.me/972525118536?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%9F%2F%D7%AA%20%D7%91%D7%94%D7%96%D7%9E%D7%A0%D7%AA%20%D7%9E%D7%9C%D7%95%D7%9F"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 font-semibold text-slate-800 group/btn hover:gap-3 transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
                 {t('explore')}
                 <span className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center group-hover/btn:bg-primary-700 transition-colors">
                   <ArrowRight className={`w-4 h-4 text-white ${isRTL ? 'rotate-180' : ''}`} />
                 </span>
-              </button>
+              </a>
             </div>
 
             {/* Decorative arrow — curves from cards toward the image */}

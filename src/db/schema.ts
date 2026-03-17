@@ -26,9 +26,10 @@ export const deals = pgTable('deals', {
   returnDate: timestamp('return_date'),
   includes: json('includes').$type<string[]>(),
   includesEn: json('includes_en').$type<string[]>(),
+  spotsLeft: integer('spots_left'),
   isActive: boolean('is_active').default(true),
   isFeatured: boolean('is_featured').default(false),
-  categoryId: integer('category_id'), // Link to categories table
+  categoryId: integer('category_id'),
   order: integer('order').default(0),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),

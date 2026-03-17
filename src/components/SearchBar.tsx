@@ -3,15 +3,25 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { Search, Calendar, Users, MapPin, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { useRouter } from '@/i18n/routing';
 
 export default function SearchBar() {
   const t = useTranslations('hero');
   const locale = useLocale();
   const isRTL = locale === 'he';
+  const router = useRouter();
 
   const [destination, setDestination] = useState('');
   const [date, setDate] = useState('');
   const [guests, setGuests] = useState('2');
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (destination.trim()) params.set('q', destination.trim());
+    if (date) params.set('date', date);
+    if (guests) params.set('guests', guests);
+    router.push(`/destinations${params.toString() ? `?${params.toString()}` : ''}`);
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-xl px-6 py-5 w-full max-w-5xl mx-auto">
@@ -79,7 +89,10 @@ export default function SearchBar() {
         </div>
 
         {/* Search Button */}
-        <button className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25 flex items-center gap-2 whitespace-nowrap shrink-0 w-full md:w-auto justify-center">
+        <button
+          onClick={handleSearch}
+          className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25 flex items-center gap-2 whitespace-nowrap shrink-0 w-full md:w-auto justify-center"
+        >
           <Search className="w-4 h-4" />
           {t('search')}
         </button>

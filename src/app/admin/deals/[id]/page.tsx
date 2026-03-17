@@ -41,6 +41,9 @@ export default function EditDealPage() {
     tagEn: '',
     tagColor: 'bg-primary-500',
     categoryId: '',
+    departureDate: '',
+    returnDate: '',
+    spotsLeft: '',
     isActive: true,
     isFeatured: false,
     includes: [''],
@@ -96,6 +99,9 @@ export default function EditDealPage() {
         tagEn: data.tagEn || '',
         tagColor: data.tagColor || 'bg-primary-500',
         categoryId: data.categoryId?.toString() || '',
+        departureDate: data.departureDate ? new Date(data.departureDate).toISOString().split('T')[0] : '',
+        returnDate: data.returnDate ? new Date(data.returnDate).toISOString().split('T')[0] : '',
+        spotsLeft: data.spotsLeft?.toString() || '',
         isActive: data.isActive ?? true,
         isFeatured: data.isFeatured ?? false,
         includes: (data.includes as string[])?.length ? data.includes as string[] : [''],
@@ -124,6 +130,9 @@ export default function EditDealPage() {
           originalPrice: formData.originalPrice || null,
           nights: parseInt(formData.nights),
           categoryId: formData.categoryId || null,
+          departureDate: formData.departureDate || null,
+          returnDate: formData.returnDate || null,
+          spotsLeft: formData.spotsLeft ? parseInt(formData.spotsLeft) : null,
           includes: formData.includes.filter(i => i.trim()),
           includesEn: formData.includesEn.filter(i => i.trim()),
         }),
@@ -477,6 +486,39 @@ className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-non
                   value={formData.nights}
                   onChange={(e) => setFormData({ ...formData, nights: e.target.value })}
                   min="1"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+            </div>
+
+            {/* Dates & Spots */}
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">תאריך יציאה</label>
+                <input
+                  type="date"
+                  value={formData.departureDate}
+                  onChange={(e) => setFormData({ ...formData, departureDate: e.target.value })}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">תאריך חזרה</label>
+                <input
+                  type="date"
+                  value={formData.returnDate}
+                  onChange={(e) => setFormData({ ...formData, returnDate: e.target.value })}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">מקומות שנותרו</label>
+                <input
+                  type="number"
+                  value={formData.spotsLeft}
+                  onChange={(e) => setFormData({ ...formData, spotsLeft: e.target.value })}
+                  min="0"
+                  placeholder="ריק = ללא הגבלה"
                   className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>

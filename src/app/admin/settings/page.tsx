@@ -58,7 +58,13 @@ export default function SettingsPage() {
     // Social
     facebookUrl: 'https://facebook.com/dealtours',
     instagramUrl: 'https://instagram.com/dealtours',
+    tiktokUrl: '',
+    youtubeUrl: '',
     whatsappNumber: '972525118536',
+
+    // Banner
+    urgencyBanner: '',
+    urgencyBannerEn: '',
 
     // About
     aboutStoryHeading: 'יותר מ-15 שנים של חוויות בלתי נשכחות',
@@ -118,7 +124,11 @@ export default function SettingsPage() {
             heroImage: data.heroImage?.value || prev.heroImage,
             facebookUrl: data.facebookUrl?.value || prev.facebookUrl,
             instagramUrl: data.instagramUrl?.value || prev.instagramUrl,
+            tiktokUrl: data.tiktokUrl?.value || prev.tiktokUrl,
+            youtubeUrl: data.youtubeUrl?.value || prev.youtubeUrl,
             whatsappNumber: data.whatsappNumber?.value || prev.whatsappNumber,
+            urgencyBanner: data.urgencyBanner?.value || prev.urgencyBanner,
+            urgencyBannerEn: data.urgencyBanner?.valueEn || prev.urgencyBannerEn,
             aboutStoryHeading: data.aboutStoryHeading?.value || prev.aboutStoryHeading,
             aboutStoryHeadingEn: data.aboutStoryHeading?.valueEn || prev.aboutStoryHeadingEn,
             aboutStoryText: data.aboutStoryText?.value || prev.aboutStoryText,
@@ -175,7 +185,10 @@ export default function SettingsPage() {
         heroImage: { value: settings.heroImage, group: 'hero', label: 'תמונת Hero', type: 'image' },
         facebookUrl: { value: settings.facebookUrl, group: 'social', label: 'Facebook URL' },
         instagramUrl: { value: settings.instagramUrl, group: 'social', label: 'Instagram URL' },
+        tiktokUrl: { value: settings.tiktokUrl, group: 'social', label: 'TikTok URL' },
+        youtubeUrl: { value: settings.youtubeUrl, group: 'social', label: 'YouTube URL' },
         whatsappNumber: { value: settings.whatsappNumber, group: 'social', label: 'WhatsApp Number' },
+        urgencyBanner: { value: settings.urgencyBanner, valueEn: settings.urgencyBannerEn, group: 'general', label: 'באנר דחיפות' },
         aboutStoryHeading: { value: settings.aboutStoryHeading, valueEn: settings.aboutStoryHeadingEn, group: 'about', label: 'כותרת סיפור' },
         aboutStoryText: { value: settings.aboutStoryText, valueEn: settings.aboutStoryTextEn, group: 'about', label: 'טקסט סיפור', type: 'html' },
         aboutStoryImage: { value: settings.aboutStoryImage, group: 'about', label: 'תמונת סיפור', type: 'image' },
@@ -314,6 +327,35 @@ export default function SettingsPage() {
                   className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                   dir="ltr"
                 />
+              </div>
+            </div>
+
+            {/* Urgency Banner */}
+            <div className="pt-4 border-t border-slate-200">
+              <h3 className="text-md font-semibold text-slate-700 mb-3">באנר דחיפות (מעל ההדר)</h3>
+              <p className="text-xs text-slate-500 mb-3">השאירו ריק כדי להסתיר. לדוגמה: &quot;מבצע מוגבל! 20% הנחה על חבילות ליוון — נגמר ביום שישי&quot;</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט (עברית)</label>
+                  <input
+                    type="text"
+                    value={settings.urgencyBanner}
+                    onChange={(e) => setSettings({ ...settings, urgencyBanner: e.target.value })}
+                    placeholder="מבצע מוגבל! 20% הנחה..."
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">טקסט (English)</label>
+                  <input
+                    type="text"
+                    value={settings.urgencyBannerEn}
+                    onChange={(e) => setSettings({ ...settings, urgencyBannerEn: e.target.value })}
+                    placeholder="Limited offer! 20% off..."
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    dir="ltr"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -514,6 +556,34 @@ export default function SettingsPage() {
                 value={settings.instagramUrl}
                 onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
                 placeholder="https://instagram.com/..."
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                dir="ltr"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                TikTok URL
+              </label>
+              <input
+                type="url"
+                value={settings.tiktokUrl}
+                onChange={(e) => setSettings({ ...settings, tiktokUrl: e.target.value })}
+                placeholder="https://tiktok.com/@..."
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                dir="ltr"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                YouTube URL
+              </label>
+              <input
+                type="url"
+                value={settings.youtubeUrl}
+                onChange={(e) => setSettings({ ...settings, youtubeUrl: e.target.value })}
+                placeholder="https://youtube.com/@..."
                 className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />

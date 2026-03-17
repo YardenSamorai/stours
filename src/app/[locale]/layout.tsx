@@ -8,6 +8,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TestimonialForm from "@/components/TestimonialForm";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
+import UrgencyBanner from "@/components/UrgencyBanner";
+import MetaPixel from "@/components/MetaPixel";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -53,11 +56,14 @@ export default async function LocaleLayout({
   return (
     <div dir={isRTL ? 'rtl' : 'ltr'} lang={locale}>
       <NextIntlClientProvider messages={messages}>
+        <UrgencyBanner />
         <Header />
         <main>{children}</main>
         <Footer />
         <TestimonialForm />
         <WhatsAppFloat />
+        <ExitIntentPopup />
+        <MetaPixel />
       </NextIntlClientProvider>
     </div>
   );

@@ -88,12 +88,32 @@ export default function Footer() {
     { href: '/contact', label: tNav('contact') },
   ];
 
+  const [socialUrls, setSocialUrls] = useState({ facebook: '#', instagram: '#', tiktok: '#', youtube: '#' });
+
+  useEffect(() => {
+    const loadSocial = async () => {
+      try {
+        const res = await fetch('/api/site-settings');
+        if (res.ok) {
+          const data = await res.json();
+          setSocialUrls({
+            facebook: data.facebookUrl?.value || '#',
+            instagram: data.instagramUrl?.value || '#',
+            tiktok: data.tiktokUrl?.value || '#',
+            youtube: data.youtubeUrl?.value || '#',
+          });
+        }
+      } catch {}
+    };
+    loadSocial();
+  }, []);
+
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: TikTok, href: '#', label: 'TikTok' },
-    { icon: Youtube, href: '#', label: 'Youtube' },
-  ];
+    { icon: Facebook, href: socialUrls.facebook, label: 'Facebook' },
+    { icon: Instagram, href: socialUrls.instagram, label: 'Instagram' },
+    { icon: TikTok, href: socialUrls.tiktok, label: 'TikTok' },
+    { icon: Youtube, href: socialUrls.youtube, label: 'Youtube' },
+  ].filter(s => s.href && s.href !== '#');
 
   return (
     <footer className="bg-slate-900 text-white">
