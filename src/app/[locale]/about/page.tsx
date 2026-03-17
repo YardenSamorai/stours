@@ -1,5 +1,4 @@
 import { setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
 import { Award, Users, Globe, Shield, Heart, Plane } from 'lucide-react';
 import type { Metadata } from 'next';
 import { db, siteSettings, teamMembers } from '@/db';
@@ -52,29 +51,34 @@ const defaultTeam = [
 const valueIcons = [Heart, Shield, Users, Globe];
 
 async function getAboutData() {
-  const [settingsRows, teamRows] = await Promise.all([
-    db.select().from(siteSettings).where(eq(siteSettings.group, 'about')),
-    db.select().from(teamMembers).where(eq(teamMembers.isActive, true)).orderBy(asc(teamMembers.order)),
-  ]);
+  try {
+    const [settingsRows, teamRows] = await Promise.all([
+      db.select().from(siteSettings).where(eq(siteSettings.group, 'about')),
+      db.select().from(teamMembers).where(eq(teamMembers.isActive, true)).orderBy(asc(teamMembers.order)),
+    ]);
 
-  const s: Record<string, { value: string | null; valueEn: string | null }> = {};
-  settingsRows.forEach(row => {
-    s[row.key] = { value: row.value, valueEn: row.valueEn };
-  });
+    const s: Record<string, { value: string | null; valueEn: string | null }> = {};
+    settingsRows.forEach(row => {
+      s[row.key] = { value: row.value, valueEn: row.valueEn };
+    });
 
-  let stats = defaultStats;
-  let values = defaultValues;
+    let stats = defaultStats;
+    let values = defaultValues;
 
-  if (s.aboutStats?.value) {
-    try { stats = JSON.parse(s.aboutStats.value); } catch { /* keep defaults */ }
+    if (s.aboutStats?.value) {
+      try { stats = JSON.parse(s.aboutStats.value); } catch { /* keep defaults */ }
+    }
+    if (s.aboutValues?.value) {
+      try { values = JSON.parse(s.aboutValues.value); } catch { /* keep defaults */ }
+    }
+
+    const team = teamRows.length > 0 ? teamRows : defaultTeam;
+
+    return { s, stats, values, team };
+  } catch (error) {
+    console.error('Error loading about data:', error);
+    return { s: {}, stats: defaultStats, values: defaultValues, team: defaultTeam };
   }
-  if (s.aboutValues?.value) {
-    try { values = JSON.parse(s.aboutValues.value); } catch { /* keep defaults */ }
-  }
-
-  const team = teamRows.length > 0 ? teamRows : defaultTeam;
-
-  return { s, stats, values, team };
 }
 
 export default async function AboutPage({
@@ -175,13 +179,17 @@ export default async function AboutPage({
               />
             </div>
             <div className="relative">
-              <Image
-                src={storyImage}
-                alt={isHebrew ? 'נוף טבעי מרהיב' : 'Beautiful natural landscape'}
-                width={800}
-                height={600}
-                className="rounded-3xl shadow-2xl"
-              />
+              {storyImage ? (
+                <img
+                  src={storyImage}
+                  alt={isHebrew ? 'נוף טבעי מרהיב' : 'Beautiful natural landscape'}
+                  width={800}
+                  height={600}
+                  className="rounded-3xl shadow-2xl w-full h-auto object-cover"
+                />
+              ) : (
+                <div className="rounded-3xl bg-gradient-to-br from-primary-200 to-primary-400 w-full h-[450px]" />
+              )}
               <div className="absolute -bottom-6 -start-6 bg-accent-500 text-white p-6 rounded-2xl shadow-xl">
                 <div className="text-4xl font-bold">{badgeNumber}</div>
                 <div className="text-accent-100">{badgeLabel}</div>
@@ -264,13 +272,17 @@ export default async function AboutPage({
             {team.map((member, index) => (
               <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all group">
                 <div className="relative overflow-hidden h-64">
-                  <Image
-                    src={member.image || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80'}
-                    alt={isHebrew ? member.name : ((member as any).nameEn || member.name)}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                  />
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={isHebrew ? member.name : ((member as any).nameEn || member.name)}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary-200 to-primary-400 flex items-center justify-center">
+                      <Users className="w-16 h-16 text-primary-600/50" />
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6 text-center">
