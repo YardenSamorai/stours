@@ -41,12 +41,7 @@ const defaultStats: StatItem[] = [
   { value: '98%', label: 'שביעות רצון', labelEn: 'Satisfaction' },
 ];
 
-const defaultTeam = [
-  { name: 'יעל כהן', nameEn: 'Yael Cohen', role: 'מנכ״לית', roleEn: 'CEO', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80' },
-  { name: 'אורי לוי', nameEn: 'Ori Levi', role: 'מנהל מכירות', roleEn: 'Sales Manager', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80' },
-  { name: 'מיכל אברהם', nameEn: 'Michal Avraham', role: 'מומחית אירופה', roleEn: 'Europe Specialist', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80' },
-  { name: 'דני ברק', nameEn: 'Dani Barak', role: 'מומחה מזרח רחוק', roleEn: 'Far East Specialist', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80' },
-];
+const defaultTeam: { name: string; nameEn?: string; role?: string; roleEn?: string; image?: string | null }[] = [];
 
 const valueIcons = [Heart, Shield, Users, Globe];
 
