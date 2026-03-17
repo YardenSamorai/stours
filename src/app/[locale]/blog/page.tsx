@@ -7,6 +7,7 @@ import { db, blogPosts } from '@/db';
 import { eq, desc } from 'drizzle-orm';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dealtours.co.il';

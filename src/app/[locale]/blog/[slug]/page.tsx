@@ -9,6 +9,7 @@ import { eq, and, desc, ne } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import { ArticleJsonLd } from '@/components/JsonLd';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 import sanitizeHtml from 'sanitize-html';
 

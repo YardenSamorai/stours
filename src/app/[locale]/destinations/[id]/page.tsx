@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 import { ProductJsonLd } from '@/components/JsonLd';
 import StickyDealBar from '@/components/StickyDealBar';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 async function getDeal(id: number) {

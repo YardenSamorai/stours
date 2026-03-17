@@ -3,6 +3,7 @@ import { db, siteSettings } from '@/db';
 import { eq } from 'drizzle-orm';
 import ContactPageClient from './ContactPageClient';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 async function getContactSettings() {
