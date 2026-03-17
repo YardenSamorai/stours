@@ -62,7 +62,7 @@ export default function ExitIntentPopup() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setShow(false)}>
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up" onClick={e => e.stopPropagation()}>
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up" dir="rtl" onClick={e => e.stopPropagation()}>
         <div className="bg-gradient-to-br from-primary-600 to-primary-800 p-6 text-center text-white relative">
           <button onClick={() => setShow(false)} className="absolute top-3 end-3 p-2 hover:bg-white/20 rounded-full transition-colors">
             <X className="w-5 h-5" />
@@ -102,8 +102,7 @@ export default function ExitIntentPopup() {
                   onChange={e => setPhone(e.target.value)}
                   placeholder={isHebrew ? 'מספר טלפון' : 'Phone number'}
                   required
-                  dir="ltr"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-right"
                 />
               </div>
               <button
