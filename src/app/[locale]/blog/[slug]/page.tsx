@@ -69,19 +69,26 @@ export async function generateMetadata({
 
   const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dealtours.co.il';
 
+  const ogImage = post.image
+    ? (post.image.startsWith('http') ? post.image : `${BASE_URL}${post.image}`)
+    : undefined;
+
   return {
     title,
     description: description || undefined,
     openGraph: {
       title,
       description: description || undefined,
-      images: post.image ? [post.image] : undefined,
+      url: `${BASE_URL}/${locale}/blog/${slug}`,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: title }] : undefined,
       type: 'article',
+      siteName: 'Deal Tours - דיל טורס',
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description: description || undefined,
+      images: ogImage ? [ogImage] : undefined,
     },
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog/${slug}`,
@@ -114,7 +121,7 @@ export default async function BlogPostPage({
   const title = isHebrew ? post.title : (post.titleEn || post.title);
   const rawContent = isHebrew ? post.content : (post.contentEn || post.content);
   const content = sanitizeHtml(rawContent, {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'iframe', 'video', 'source', 'h1', 'h2']),
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'iframe', 'video', 'source', 'h2', 'h3', 'h4', 'h5', 'h6']),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
       img: ['src', 'alt', 'width', 'height', 'loading', 'class', 'style'],

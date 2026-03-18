@@ -9,6 +9,7 @@ import {
   Eye,
   Image as ImageIcon
 } from 'lucide-react';
+import SeoChecklist from '@/components/admin/SeoChecklist';
 
 export default function NewBlogPostPage() {
   const router = useRouter();
@@ -384,6 +385,9 @@ export default function NewBlogPostPage() {
                 className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
+
+            {/* SEO Checklist */}
+            <SeoChecklist formData={formData} />
 
             {/* Actions */}
             <div className="space-y-3">

@@ -10,6 +10,7 @@ import {
   Loader2
 } from 'lucide-react';
 import type { BlogPost } from '@/db/schema';
+import SeoChecklist from '@/components/admin/SeoChecklist';
 
 export default function EditBlogPostPage() {
   const router = useRouter();
@@ -416,6 +417,9 @@ export default function EditBlogPostPage() {
                 className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
+
+            {/* SEO Checklist */}
+            <SeoChecklist formData={formData} />
 
             {/* Actions */}
             <div className="space-y-3">

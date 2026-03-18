@@ -15,11 +15,26 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dealtours.co.il';
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const isHebrew = locale === 'he';
+  const title = isHebrew ? 'הבלוג שלנו - טיפים והמלצות לטיולים' : 'Our Blog - Travel Tips & Recommendations';
+  const description = isHebrew
+    ? 'טיפים, המלצות וחוויות מעולם הנסיעות. כל מה שצריך לדעת לפני הטיול הבא'
+    : 'Tips, recommendations and travel experiences. Everything you need to know before your next trip';
+
   return {
-    title: isHebrew ? 'הבלוג שלנו - טיפים והמלצות לטיולים' : 'Our Blog - Travel Tips & Recommendations',
-    description: isHebrew
-      ? 'טיפים, המלצות וחוויות מעולם הנסיעות. כל מה שצריך לדעת לפני הטיול הבא'
-      : 'Tips, recommendations and travel experiences. Everything you need to know before your next trip',
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${BASE_URL}/${locale}/blog`,
+      type: 'website',
+      siteName: 'Deal Tours - דיל טורס',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog`,
       languages: { 'he': `${BASE_URL}/he/blog`, 'en': `${BASE_URL}/en/blog` },
