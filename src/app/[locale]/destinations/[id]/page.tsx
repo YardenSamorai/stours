@@ -230,8 +230,85 @@ export default async function DealDetailPage({
                 </div>
               )}
 
-              {/* Dates */}
-              {(deal.departureDate || deal.returnDate) && (
+              {/* Flight Cards */}
+              {deal.outboundFlight && deal.outboundFlight.departureAirport && (
+                <div className="bg-white rounded-2xl p-8 shadow-sm space-y-6">
+                  <h2 className="text-2xl font-bold text-slate-800 mb-2">
+                    {isHebrew ? '✈️ פרטי טיסות' : '✈️ Flight Details'}
+                  </h2>
+                  <FlightCard flight={deal.outboundFlight} label={isHebrew ? 'טיסה הלוך' : 'Outbound Flight'} isHebrew={isHebrew} />
+                  {deal.returnFlight && deal.returnFlight.departureAirport && (
+                    <FlightCard flight={deal.returnFlight} label={isHebrew ? 'טיסה חזור' : 'Return Flight'} isHebrew={isHebrew} />
+                  )}
+                </div>
+              )}
+
+              {/* Hotel Card */}
+              {deal.hotel && deal.hotel.name && (
+                <div className="bg-white rounded-2xl p-8 shadow-sm space-y-6">
+                  <h2 className="text-2xl font-bold text-slate-800">
+                    {isHebrew ? '🏨 המלון' : '🏨 Hotel'}
+                  </h2>
+                  <div className="flex flex-wrap items-start gap-4">
+                    <div className="flex-1 min-w-[200px]">
+                      <h3 className="text-xl font-bold text-slate-800">{deal.hotel.name}</h3>
+                      {deal.hotel.stars > 0 && (
+                        <div className="flex gap-0.5 my-1">
+                          {Array.from({ length: deal.hotel.stars }).map((_, i) => (
+                            <span key={i} className="text-amber-400">★</span>
+                          ))}
+                        </div>
+                      )}
+                      {deal.hotel.roomType && (
+                        <p className="text-slate-600"><span className="font-medium">{isHebrew ? 'סוג חדר:' : 'Room:'}</span> {deal.hotel.roomType}</p>
+                      )}
+                      {deal.hotel.boardBasis && (
+                        <p className="text-slate-600"><span className="font-medium">{isHebrew ? 'בסיס אירוח:' : 'Board:'}</span> {
+                          { RO: isHebrew ? 'לינה בלבד' : 'Room Only', BB: isHebrew ? 'לינה + בוקר' : 'Bed & Breakfast', HB: isHebrew ? 'חצי פנסיון' : 'Half Board', FB: isHebrew ? 'פנסיון מלא' : 'Full Board', AI: isHebrew ? 'הכל כלול' : 'All Inclusive' }[deal.hotel.boardBasis] || deal.hotel.boardBasis
+                        }</p>
+                      )}
+                      {deal.hotel.roomDescription && (
+                        <p className="text-slate-500 mt-2 text-sm leading-relaxed">{deal.hotel.roomDescription}</p>
+                      )}
+                      {(deal.hotel.checkIn || deal.hotel.checkOut) && (
+                        <div className="flex gap-4 mt-3 text-sm">
+                          {deal.hotel.checkIn && <span className="text-slate-600">📅 {isHebrew ? 'צ׳ק-אין:' : 'Check-in:'} <strong>{new Date(deal.hotel.checkIn).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US')}</strong></span>}
+                          {deal.hotel.checkOut && <span className="text-slate-600">📅 {isHebrew ? 'צ׳ק-אאוט:' : 'Check-out:'} <strong>{new Date(deal.hotel.checkOut).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US')}</strong></span>}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {deal.hotel.images && deal.hotel.images.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                      {deal.hotel.images.map((img, i) => (
+                        <div key={i} className="relative h-40 rounded-xl overflow-hidden">
+                          <Image src={img} alt={`${deal.hotel!.name} ${i + 1}`} fill className="object-cover hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 50vw, 33vw" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Cancellation Policy */}
+              {(deal.freeCancellation || deal.cancellationPolicy) && (
+                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                  <div className="flex items-center gap-3">
+                    {deal.freeCancellation && (
+                      <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full font-semibold text-sm">
+                        <Check className="w-4 h-4" />
+                        {isHebrew ? 'ביטול חינם' : 'Free Cancellation'}
+                      </span>
+                    )}
+                  </div>
+                  {deal.cancellationPolicy && (
+                    <p className="text-slate-600 text-sm mt-3">{deal.cancellationPolicy}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Dates fallback (when no flight info) */}
+              {!deal.outboundFlight && (deal.departureDate || deal.returnDate) && (
                 <div className="bg-white rounded-2xl p-8 shadow-sm">
                   <h2 className="text-2xl font-bold text-slate-800 mb-4">
                     {isHebrew ? 'תאריכים' : 'Dates'}
@@ -362,11 +439,21 @@ export default async function DealDetailPage({
                     </Link>
                   </div>
 
+                  {/* Free Cancellation Badge */}
+                  {deal.freeCancellation && (
+                    <div className="flex items-center gap-2 p-3 bg-green-50 rounded-xl mb-4">
+                      <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      <span className="text-sm font-bold text-green-700">
+                        {isHebrew ? 'ביטול חינם!' : 'Free Cancellation!'}
+                      </span>
+                    </div>
+                  )}
+
                   {/* Trust Badges */}
                   <div className="mt-5 pt-5 border-t border-slate-100 space-y-2.5">
                     {[
                       { icon: Shield, text: isHebrew ? 'הזמנה מאובטחת' : 'Secure Booking' },
-                      { icon: Clock, text: isHebrew ? 'ביטול חינם עד 48 שעות' : 'Free cancellation up to 48h' },
+                      { icon: Clock, text: deal.freeCancellation ? (isHebrew ? 'ביטול חינם' : 'Free cancellation') : (isHebrew ? 'ביטול חינם עד 48 שעות' : 'Free cancellation up to 48h') },
                       { icon: Award, text: isHebrew ? '15+ שנות ניסיון' : '15+ years experience' },
                       { icon: CreditCard, text: isHebrew ? 'תשלום בכל האמצעים' : 'All payment methods' },
                     ].map((badge, i) => (
@@ -425,5 +512,50 @@ export default async function DealDetailPage({
         </section>
       )}
     </>
+  );
+}
+
+function FlightCard({ flight, label, isHebrew }: { flight: any; label: string; isHebrew: boolean }) {
+  if (!flight || !flight.departureAirport) return null;
+  return (
+    <div className="border border-slate-200 rounded-xl p-5 space-y-3">
+      <div className="flex items-center justify-between">
+        <span className="font-semibold text-slate-700 text-sm">{label}</span>
+        {flight.airline && <span className="text-sm text-slate-500">{flight.airline} {flight.flightNumber && `• ${flight.flightNumber}`}</span>}
+      </div>
+      <div className="flex items-center justify-between gap-4">
+        <div className="text-center">
+          <div className="text-2xl font-black text-slate-800">{flight.departureAirport}</div>
+          <div className="text-xs text-slate-500">{flight.departureCity}</div>
+          {flight.departureTime && <div className="text-sm font-semibold text-primary-600 mt-1">{flight.departureTime}</div>}
+        </div>
+        <div className="flex-1 flex flex-col items-center px-2">
+          <div className="w-full flex items-center">
+            <div className="h-px flex-1 bg-slate-300" />
+            <span className="mx-2 text-lg">✈️</span>
+            <div className="h-px flex-1 bg-slate-300" />
+          </div>
+          {flight.stops && flight.stops.length > 0 ? (
+            <span className="text-xs text-amber-600 font-medium mt-1">
+              {flight.stops.length === 1
+                ? (isHebrew ? `עצירה ב-${flight.stops[0].city || flight.stops[0].airport}` : `1 stop at ${flight.stops[0].city || flight.stops[0].airport}`)
+                : (isHebrew ? `${flight.stops.length} עצירות` : `${flight.stops.length} stops`)}
+            </span>
+          ) : (
+            <span className="text-xs text-green-600 font-medium mt-1">{isHebrew ? 'ישיר' : 'Direct'}</span>
+          )}
+        </div>
+        <div className="text-center">
+          <div className="text-2xl font-black text-slate-800">{flight.arrivalAirport}</div>
+          <div className="text-xs text-slate-500">{flight.arrivalCity}</div>
+          {flight.arrivalTime && <div className="text-sm font-semibold text-primary-600 mt-1">{flight.arrivalTime}</div>}
+        </div>
+      </div>
+      {flight.date && (
+        <div className="text-center text-xs text-slate-500">
+          {new Date(flight.date).toLocaleDateString(isHebrew ? 'he-IL' : 'en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+        </div>
+      )}
+    </div>
   );
 }

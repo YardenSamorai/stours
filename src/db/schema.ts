@@ -1,6 +1,36 @@
 import { pgTable, serial, text, varchar, integer, boolean, timestamp, json, decimal } from 'drizzle-orm/pg-core';
 
 // Deals / Packages Table
+export interface FlightStop {
+  airport: string;
+  city: string;
+  duration: string;
+}
+
+export interface FlightInfo {
+  airline: string;
+  flightNumber: string;
+  departureAirport: string;
+  departureCity: string;
+  arrivalAirport: string;
+  arrivalCity: string;
+  date: string;
+  departureTime: string;
+  arrivalTime: string;
+  stops: FlightStop[];
+}
+
+export interface HotelInfo {
+  name: string;
+  stars: number;
+  roomType: string;
+  roomDescription: string;
+  boardBasis: 'RO' | 'BB' | 'HB' | 'FB' | 'AI' | '';
+  checkIn: string;
+  checkOut: string;
+  images: string[];
+}
+
 export const deals = pgTable('deals', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
@@ -27,6 +57,11 @@ export const deals = pgTable('deals', {
   includes: json('includes').$type<string[]>(),
   includesEn: json('includes_en').$type<string[]>(),
   spotsLeft: integer('spots_left'),
+  outboundFlight: json('outbound_flight').$type<FlightInfo>(),
+  returnFlight: json('return_flight').$type<FlightInfo>(),
+  hotel: json('hotel').$type<HotelInfo>(),
+  freeCancellation: boolean('free_cancellation').default(false),
+  cancellationPolicy: text('cancellation_policy'),
   isActive: boolean('is_active').default(true),
   isFeatured: boolean('is_featured').default(false),
   categoryId: integer('category_id'),
