@@ -86,7 +86,7 @@ export default function NewBlogPostPage() {
           <ArrowRight className="w-6 h-6 text-slate-600" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">פוסט חדש</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">פוסט חדש</h1>
           <p className="text-slate-500">כתוב פוסט חדש לבלוג</p>
         </div>
       </div>
@@ -122,7 +122,7 @@ export default function NewBlogPostPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Title & Content */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">תוכן</h2>
               
               {activeTab === 'he' ? (
@@ -225,7 +225,7 @@ export default function NewBlogPostPage() {
             </div>
 
             {/* SEO */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">SEO</h2>
               
               {activeTab === 'he' ? (
@@ -291,7 +291,7 @@ export default function NewBlogPostPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Publish Settings */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">פרסום</h2>
               
               <div>
@@ -323,7 +323,7 @@ export default function NewBlogPostPage() {
             </div>
 
             {/* Image */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">תמונה ראשית</h2>
               
               <div>
@@ -350,7 +350,7 @@ export default function NewBlogPostPage() {
             </div>
 
             {/* Category */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">קטגוריה</h2>
               
               <select
@@ -373,7 +373,7 @@ export default function NewBlogPostPage() {
             </div>
 
             {/* Author */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">מחבר</h2>
               
               <input

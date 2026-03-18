@@ -92,7 +92,7 @@ export default function TestimonialsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">המלצות</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">המלצות</h1>
           <p className="text-slate-500">נהל את המלצות הלקוחות ({testimonials.length} המלצות)</p>
         </div>
         <Link
@@ -130,7 +130,7 @@ export default function TestimonialsPage() {
       {/* Filters */}
       <div className="bg-white rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row gap-4">
         {/* Filter Tabs */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setFilter('all')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
@@ -184,7 +184,7 @@ export default function TestimonialsPage() {
           {filteredTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className={`bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow relative ${
+              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-lg transition-shadow relative ${
                 !testimonial.isActive ? 'ring-2 ring-amber-300 ring-offset-2' : ''
               }`}
             >

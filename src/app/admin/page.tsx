@@ -197,9 +197,9 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-8 text-white">
-        <h1 className="text-3xl font-bold mb-2">שלום! 👋</h1>
-        <p className="text-primary-100 text-lg">
+      <div className="bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-4 sm:p-6 md:p-8 text-white">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">שלום! 👋</h1>
+        <p className="text-primary-100 text-base sm:text-lg">
           ברוכים הבאים למערכת הניהול של דיל טורס. כאן תוכלו לנהל את כל התוכן באתר.
         </p>
       </div>
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
           <Link
             key={stat.label}
             href={stat.href}
-            className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all group"
+            className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-lg transition-all group"
           >
             <div className="flex items-start justify-between">
               <div className={`p-3 ${stat.color} rounded-xl text-white`}>
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
               )}
             </div>
             <div className="mt-4">
-              <div className="text-3xl font-bold text-slate-800">{stat.value.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800">{stat.value.toLocaleString()}</div>
               <div className="text-slate-500">{stat.label}</div>
             </div>
           </Link>
@@ -231,16 +231,16 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick Actions & Recent Activity */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Quick Actions */}
         <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-800 mb-6">פעולות מהירות</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-6">פעולות מהירות</h2>
           <div className="grid gap-4">
             {quickActions.map((action) => (
               <Link
                 key={action.label}
                 href={action.href}
-                className="flex items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors group"
+                className="flex flex-wrap items-center gap-4 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors group"
               >
                 <div className={`p-3 ${action.color} rounded-xl text-white`}>
                   <action.icon className="w-5 h-5" />
@@ -256,13 +256,13 @@ export default function AdminDashboard() {
 
         {/* Recent Activity */}
         <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <h2 className="text-xl font-bold text-slate-800 mb-6">פעילות אחרונה</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-slate-800 mb-6">פעילות אחרונה</h2>
           {recentActivity.length > 0 ? (
             <div className="space-y-4">
               {recentActivity.map((activity, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl"
+                  className="flex flex-wrap items-center gap-4 p-4 bg-slate-50 rounded-xl"
                 >
                   <div className={`p-2 rounded-lg ${
                     activity.type === 'deal' ? 'bg-blue-100 text-blue-600' :
@@ -292,7 +292,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Info Cards */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
           <h3 className="text-lg font-bold mb-2">💡 טיפ</h3>
           <p className="text-blue-100">

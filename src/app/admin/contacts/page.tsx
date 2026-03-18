@@ -79,7 +79,7 @@ export default function ContactsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">פניות לקוחות</h1>
+        <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">פניות לקוחות</h1>
         <p className="text-slate-500">נהל את הפניות שהתקבלו מהאתר</p>
       </div>
 
@@ -119,7 +119,7 @@ export default function ContactsPage() {
           {filteredContacts.map((contact) => (
             <div
               key={contact.id}
-              className={`p-6 hover:bg-slate-50 transition-colors cursor-pointer ${
+              className={`p-3 sm:p-4 md:p-6 hover:bg-slate-50 transition-colors cursor-pointer ${
                 !contact.isRead ? 'bg-blue-50/50' : ''
               }`}
               onClick={() => setSelectedContact(selectedContact === contact.id ? null : contact.id)}

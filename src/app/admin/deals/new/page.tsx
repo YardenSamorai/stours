@@ -137,7 +137,7 @@ export default function NewDealPage() {
           <ArrowRight className="w-6 h-6 text-slate-600" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">דיל חדש</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-800">דיל חדש</h1>
           <p className="text-slate-500">הוסף דיל או חבילת נופש חדשה</p>
         </div>
       </div>
@@ -149,7 +149,7 @@ export default function NewDealPage() {
             key={s.id}
             type="button"
             onClick={() => setActiveSection(s.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+            className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm rounded-xl font-medium transition-all ${
               activeSection === s.id
                 ? 'bg-primary-600 text-white shadow-md'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -165,7 +165,7 @@ export default function NewDealPage() {
         {/* SECTION 1: Basic Info */}
         {activeSection === 'basic' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">פרטים בסיסיים</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -226,7 +226,7 @@ export default function NewDealPage() {
             </div>
 
             {/* Includes */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">מה כולל הדיל</h2>
               {formData.includes.map((item, i) => (
                 <div key={i} className="flex gap-2">
@@ -266,7 +266,7 @@ export default function NewDealPage() {
 
         {/* SECTION 5: Pricing & Policy */}
         {activeSection === 'pricing' && (
-          <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
             <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">תמחור ומדיניות</h2>
 
             <div>
@@ -318,10 +318,10 @@ export default function NewDealPage() {
         {/* SECTION 6: Images */}
         {activeSection === 'images' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm">
               <ImageUploader value={formData.image} onChange={url => setFormData({ ...formData, image: url })} label="תמונה ראשית של הדיל" />
             </div>
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">גלריית תמונות נוספות</h2>
               <MultiImageUploader images={formData.images} onChange={imgs => setFormData({ ...formData, images: imgs })} />
             </div>
@@ -330,7 +330,7 @@ export default function NewDealPage() {
 
         {/* Submit - always visible */}
         <div className="flex items-center gap-4">
-          <button type="submit" disabled={isSubmitting} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
+          <button type="submit" disabled={isSubmitting} className="flex items-center gap-2 w-full sm:w-auto bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
             <Save className="w-5 h-5" />
             {isSubmitting ? 'שומר...' : 'שמור דיל'}
           </button>
@@ -354,7 +354,7 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
       <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">{icon} {title}</h2>
 
       <div className="grid md:grid-cols-2 gap-4">
@@ -440,7 +440,7 @@ function HotelSection({ hotel, onChange }: { hotel: HotelInfo; onChange: (h: Hot
   const update = (key: keyof HotelInfo, value: any) => onChange({ ...hotel, [key]: value });
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
       <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">🏨 מלון</h2>
 
       <div className="grid md:grid-cols-2 gap-4">

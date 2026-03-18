@@ -174,12 +174,12 @@ export default function TeamAdminPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">צוות</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">צוות</h1>
           <p className="text-slate-500">ניהול חברי הצוות שמופיעים בדף אודות ({members.length} חברים)</p>
         </div>
         <button
           onClick={openNew}
-          className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+          className="inline-flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors w-full sm:w-auto"
         >
           <Plus className="w-5 h-5" />
           חבר צוות חדש
@@ -189,7 +189,7 @@ export default function TeamAdminPage() {
       {/* Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowForm(false)}>
-          <div className="bg-white rounded-2xl p-6 w-full max-w-lg space-y-5" onClick={e => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl p-4 sm:p-6 w-full max-w-lg space-y-5" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-slate-800">
                 {editingId ? 'עריכת חבר צוות' : 'חבר צוות חדש'}
@@ -199,7 +199,7 @@ export default function TeamAdminPage() {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">שם (עברית) *</label>
                 <input
@@ -221,7 +221,7 @@ export default function TeamAdminPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">תפקיד (עברית)</label>
                 <input
@@ -290,8 +290,8 @@ export default function TeamAdminPage() {
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="divide-y divide-slate-100">
             {members.map((m, idx) => (
-              <div key={m.id} className={`flex items-center gap-4 p-4 hover:bg-slate-50 transition-colors ${!m.isActive ? 'opacity-60' : ''}`}>
-                <div className="flex flex-col gap-1">
+              <div key={m.id} className={`flex flex-wrap items-center gap-2 sm:gap-4 p-4 hover:bg-slate-50 transition-colors ${!m.isActive ? 'opacity-60' : ''}`}>
+                <div className="flex flex-col gap-1 shrink-0">
                   <button
                     onClick={() => moveOrder(m.id, 'up')}
                     disabled={idx === 0}
@@ -310,27 +310,28 @@ export default function TeamAdminPage() {
                   </button>
                 </div>
 
-                {m.image ? (
-                  <img src={m.image} alt={m.name} className="w-14 h-14 rounded-full object-cover" />
-                ) : (
-                  <div className="w-14 h-14 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold text-lg">
-                    {m.name.charAt(0)}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 flex-1 min-w-0">
+                  {m.image ? (
+                    <img src={m.image} alt={m.name} className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shrink-0" />
+                  ) : (
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold text-base sm:text-lg shrink-0">
+                      {m.name.charAt(0)}
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-slate-800">{m.name}</h3>
+                    {m.role && <p className="text-sm text-slate-500">{m.role}</p>}
+                    {m.nameEn && <p className="text-xs text-slate-400" dir="ltr">{m.nameEn}{m.roleEn ? ` — ${m.roleEn}` : ''}</p>}
                   </div>
-                )}
-
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-slate-800">{m.name}</h3>
-                  {m.role && <p className="text-sm text-slate-500">{m.role}</p>}
-                  {m.nameEn && <p className="text-xs text-slate-400" dir="ltr">{m.nameEn}{m.roleEn ? ` — ${m.roleEn}` : ''}</p>}
                 </div>
 
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                <span className={`px-2 py-1 rounded-full text-xs font-medium shrink-0 ${
                   m.isActive ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'
                 }`}>
                   {m.isActive ? 'פעיל' : 'מוסתר'}
                 </span>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 shrink-0">
                   <button
                     onClick={() => openEdit(m)}
                     className="p-2 hover:bg-slate-100 rounded-lg transition-colors"

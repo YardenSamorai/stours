@@ -135,7 +135,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
             <ArrowRight className="w-6 h-6 text-slate-600" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">עריכת קטגוריה</h1>
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">עריכת קטגוריה</h1>
             <p className="text-slate-500">{formData.title}</p>
           </div>
         </div>
@@ -179,7 +179,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Basic Info */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">פרטים בסיסיים</h2>
 
               {activeTab === 'he' ? (
@@ -246,7 +246,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
             </div>
 
             {/* Image */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">תמונה</h2>
 
               {/* Image Selection Options */}
@@ -343,7 +343,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Preview */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm">
               <h2 className="text-lg font-semibold text-slate-800 mb-4">תצוגה מקדימה</h2>
               <div className="flex flex-col items-center">
                 <div className="relative w-32 aspect-[3/4] rounded-[50%/40%] overflow-hidden shadow-md bg-slate-100 mb-3">
@@ -368,7 +368,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
             </div>
 
             {/* Order */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">סדר הצגה</h2>
               <input
                 type="number"
@@ -380,7 +380,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
             </div>
 
             {/* Status */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">סטטוס</h2>
               <label className="flex items-center gap-3 cursor-pointer">
                 <input

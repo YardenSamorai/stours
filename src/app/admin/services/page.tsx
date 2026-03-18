@@ -127,7 +127,7 @@ export default function ServicesAdminPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">שירותים</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">שירותים</h1>
           <p className="text-slate-500">נהל את השירותים המוצגים באתר ({services.length} שירותים)</p>
         </div>
         <div className="flex gap-3">
@@ -154,7 +154,7 @@ export default function ServicesAdminPage() {
 
       {/* Section Settings Panel */}
       {showSettings && (
-        <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
           <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
             <Settings className="w-5 h-5" />
             הגדרות סקשן השירותים
@@ -258,7 +258,7 @@ export default function ServicesAdminPage() {
             return (
               <div
                 key={service.id}
-                className={`bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow ${
+                className={`bg-white rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-lg transition-shadow ${
                   !service.isActive ? 'opacity-60' : ''
                 }`}
               >

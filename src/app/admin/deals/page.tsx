@@ -91,14 +91,14 @@ export default function DealsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">דילים וחבילות</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">דילים וחבילות</h1>
           <p className="text-slate-500">נהל את כל הדילים והחבילות באתר ({deals.length} דילים)</p>
         </div>
         <Link
           href="/admin/deals/new"
-          className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+          className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-semibold transition-colors shrink-0"
         >
           <Plus className="w-5 h-5" />
           דיל חדש
@@ -129,7 +129,7 @@ export default function DealsPage() {
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         {filteredDeals.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[640px]">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
                   <th className="p-4 text-right">
@@ -217,31 +217,31 @@ export default function DealsPage() {
                       </span>
                     </td>
                     <td className="p-4">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 sm:gap-2">
                         <Link
                           href={`/admin/deals/${deal.id}`}
-                          className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                          className="p-1.5 sm:p-2 hover:bg-slate-100 rounded-lg transition-colors"
                           title="עריכה"
                         >
-                          <Edit className="w-4 h-4 text-slate-500" />
+                          <Edit className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500" />
                         </Link>
                         <button
                           onClick={() => toggleDealActive(deal)}
-                          className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                          className="p-1.5 sm:p-2 hover:bg-slate-100 rounded-lg transition-colors"
                           title={deal.isActive ? 'הסתר' : 'הצג'}
                         >
                           {deal.isActive ? (
-                            <EyeOff className="w-4 h-4 text-slate-500" />
+                            <EyeOff className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500" />
                           ) : (
-                            <Eye className="w-4 h-4 text-slate-500" />
+                            <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500" />
                           )}
                         </button>
                         <button
                           onClick={() => deleteDeal(deal.id)}
-                          className="p-2 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-1.5 sm:p-2 hover:bg-red-50 rounded-lg transition-colors"
                           title="מחק"
                         >
-                          <Trash2 className="w-4 h-4 text-red-500" />
+                          <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500" />
                         </button>
                       </div>
                     </td>

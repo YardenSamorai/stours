@@ -131,14 +131,14 @@ export default function EditDealPage() {
       <div className="flex items-center gap-4">
         <Link href="/admin/deals" className="p-2 hover:bg-slate-100 rounded-lg transition-colors"><ArrowRight className="w-6 h-6 text-slate-600" /></Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">עריכת דיל</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-800">עריכת דיל</h1>
           <p className="text-slate-500">{formData.title}</p>
         </div>
       </div>
 
       <div className="bg-white rounded-2xl p-2 shadow-sm flex flex-wrap gap-1">
         {sections.map(s => (
-          <button key={s.id} type="button" onClick={() => setActiveSection(s.id)} className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${activeSection === s.id ? 'bg-primary-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}>
+          <button key={s.id} type="button" onClick={() => setActiveSection(s.id)} className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm rounded-xl font-medium transition-all ${activeSection === s.id ? 'bg-primary-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}>
             <s.icon className="w-4 h-4" />{s.label}
           </button>
         ))}
@@ -147,7 +147,7 @@ export default function EditDealPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {activeSection === 'basic' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">פרטים בסיסיים</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div><label className="block text-sm font-medium text-slate-700 mb-2">שם הדיל (עברית) *</label><input type="text" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" required /></div>
@@ -168,7 +168,7 @@ export default function EditDealPage() {
                 <label className="flex items-center gap-3 cursor-pointer"><input type="checkbox" checked={formData.isFeatured} onChange={e => setFormData({ ...formData, isFeatured: e.target.checked })} className="w-5 h-5 text-primary-600 rounded" /><span className="text-slate-700">מומלץ</span></label>
               </div>
             </div>
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">מה כולל הדיל</h2>
               {formData.includes.map((item, i) => (
                 <div key={i} className="flex gap-2">
@@ -196,7 +196,7 @@ export default function EditDealPage() {
         {activeSection === 'hotel' && <HotelSection hotel={hotel} onChange={setHotel} />}
 
         {activeSection === 'pricing' && (
-          <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
             <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">תמחור ומדיניות</h2>
             <div><label className="block text-sm font-medium text-slate-700 mb-2">מטבע</label><div className="flex gap-2">{currencies.map(c => <button key={c.value} type="button" onClick={() => setFormData({ ...formData, currency: c.value })} className={`flex-1 px-4 py-3 rounded-xl font-medium transition-all ${formData.currency === c.value ? 'bg-primary-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}`}>{c.label}</button>)}</div></div>
             <div className="grid md:grid-cols-3 gap-4">
@@ -219,8 +219,8 @@ export default function EditDealPage() {
 
         {activeSection === 'images' && (
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm"><ImageUploader value={formData.image} onChange={url => setFormData({ ...formData, image: url })} label="תמונה ראשית של הדיל" /></div>
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm"><ImageUploader value={formData.image} onChange={url => setFormData({ ...formData, image: url })} label="תמונה ראשית של הדיל" /></div>
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">גלריית תמונות נוספות</h2>
               <MultiImageUploader images={formData.images} onChange={imgs => setFormData({ ...formData, images: imgs })} />
             </div>
@@ -228,7 +228,7 @@ export default function EditDealPage() {
         )}
 
         <div className="flex items-center gap-4">
-          <button type="submit" disabled={isSubmitting} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
+          <button type="submit" disabled={isSubmitting} className="flex items-center gap-2 w-full sm:w-auto bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
             <Save className="w-5 h-5" />{isSubmitting ? 'שומר...' : 'עדכן דיל'}
           </button>
           <Link href="/admin/deals" className="px-6 py-4 text-slate-600 hover:text-slate-800 font-medium">ביטול</Link>
@@ -245,7 +245,7 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
   const updateStop = (i: number, key: keyof FlightStop, value: string) => { const stops = [...flight.stops]; stops[i] = { ...stops[i], [key]: value }; onChange({ ...flight, stops }); };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
       <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">{icon} {title}</h2>
       <div className="grid md:grid-cols-2 gap-4">
         <div><label className="block text-sm font-medium text-slate-700 mb-2">חברת תעופה</label><input type="text" value={flight.airline} onChange={e => update('airline', e.target.value)} placeholder="אל על, ריינאייר..." className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
@@ -292,7 +292,7 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
 function HotelSection({ hotel, onChange }: { hotel: HotelInfo; onChange: (h: HotelInfo) => void }) {
   const update = (key: keyof HotelInfo, value: any) => onChange({ ...hotel, [key]: value });
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
       <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">🏨 מלון</h2>
       <div className="grid md:grid-cols-2 gap-4">
         <div><label className="block text-sm font-medium text-slate-700 mb-2">שם המלון</label><input type="text" value={hotel.name} onChange={e => update('name', e.target.value)} placeholder="Santorini Grand Hotel" className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>

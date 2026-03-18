@@ -252,7 +252,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">הגדרות האתר</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-800">הגדרות האתר</h1>
           <p className="text-slate-500">ערוך את התוכן וההגדרות של האתר</p>
         </div>
         <div className="flex items-center gap-3">
@@ -265,7 +265,7 @@ export default function SettingsPage() {
           <button
             onClick={handleSave}
             disabled={isSaving || isLoading}
-            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 disabled:bg-slate-400 text-white w-full sm:w-auto px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl font-semibold transition-colors"
           >
             {isSaving ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -283,7 +283,7 @@ export default function SettingsPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-colors ${
+            className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm rounded-xl font-medium transition-colors ${
               activeTab === tab.id
                 ? 'bg-primary-600 text-white'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -296,10 +296,10 @@ export default function SettingsPage() {
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm">
+      <div className="bg-white rounded-2xl p-3 sm:p-4 md:p-6 shadow-sm">
         {activeTab === 'general' && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+            <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
               הגדרות כלליות
             </h2>
             
@@ -311,7 +311,7 @@ export default function SettingsPage() {
                 type="text"
                 value={settings.siteName}
                 onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
             
@@ -324,7 +324,7 @@ export default function SettingsPage() {
                   value={settings.siteDescription}
                   onChange={(e) => setSettings({ ...settings, siteDescription: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                 />
               </div>
               <div>
@@ -335,7 +335,7 @@ export default function SettingsPage() {
                   value={settings.siteDescriptionEn}
                   onChange={(e) => setSettings({ ...settings, siteDescriptionEn: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                   dir="ltr"
                 />
               </div>
@@ -343,7 +343,7 @@ export default function SettingsPage() {
 
             {/* Urgency Banner */}
             <div className="pt-4 border-t border-slate-200">
-              <h3 className="text-md font-semibold text-slate-700 mb-3">באנר דחיפות (מעל ההדר)</h3>
+              <h3 className="text-sm sm:text-base font-semibold text-slate-700 mb-3">באנר דחיפות (מעל ההדר)</h3>
               <p className="text-xs text-slate-500 mb-3">השאירו ריק כדי להסתיר. לדוגמה: &quot;מבצע מוגבל! 20% הנחה על חבילות ליוון — נגמר ביום שישי&quot;</p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -353,7 +353,7 @@ export default function SettingsPage() {
                     value={settings.urgencyBanner}
                     onChange={(e) => setSettings({ ...settings, urgencyBanner: e.target.value })}
                     placeholder="מבצע מוגבל! 20% הנחה..."
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -363,7 +363,7 @@ export default function SettingsPage() {
                     value={settings.urgencyBannerEn}
                     onChange={(e) => setSettings({ ...settings, urgencyBannerEn: e.target.value })}
                     placeholder="Limited offer! 20% off..."
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     dir="ltr"
                   />
                 </div>
@@ -374,7 +374,7 @@ export default function SettingsPage() {
 
         {activeTab === 'hero' && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+            <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
               הגדרות Hero (באנר ראשי)
             </h2>
             
@@ -387,7 +387,7 @@ export default function SettingsPage() {
                   type="text"
                   value={settings.heroTitle}
                   onChange={(e) => setSettings({ ...settings, heroTitle: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -398,7 +398,7 @@ export default function SettingsPage() {
                   type="text"
                   value={settings.heroTitleEn}
                   onChange={(e) => setSettings({ ...settings, heroTitleEn: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
               </div>
@@ -413,7 +413,7 @@ export default function SettingsPage() {
                   type="text"
                   value={settings.heroSubtitle}
                   onChange={(e) => setSettings({ ...settings, heroSubtitle: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -424,7 +424,7 @@ export default function SettingsPage() {
                   type="text"
                   value={settings.heroSubtitleEn}
                   onChange={(e) => setSettings({ ...settings, heroSubtitleEn: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
               </div>
@@ -439,7 +439,7 @@ export default function SettingsPage() {
                 value={settings.heroImage}
                 onChange={(e) => setSettings({ ...settings, heroImage: e.target.value })}
                 placeholder="https://..."
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
               {settings.heroImage && (
@@ -455,7 +455,7 @@ export default function SettingsPage() {
 
         {activeTab === 'contact' && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+            <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
               פרטי התקשרות
             </h2>
             
@@ -470,7 +470,7 @@ export default function SettingsPage() {
                   value={settings.phone}
                   onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
                   placeholder="0525118536"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
                 <p className="text-xs text-slate-500 mt-1">מספר לקישור (ללא מקפים)</p>
@@ -485,7 +485,7 @@ export default function SettingsPage() {
                   value={settings.phoneDisplay}
                   onChange={(e) => setSettings({ ...settings, phoneDisplay: e.target.value })}
                   placeholder="03-1234567"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
                 <p className="text-xs text-slate-500 mt-1">מספר המוצג ב-Header</p>
@@ -501,7 +501,7 @@ export default function SettingsPage() {
                 type="email"
                 value={settings.email}
                 onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
             </div>
@@ -516,7 +516,7 @@ export default function SettingsPage() {
                   type="text"
                   value={settings.address}
                   onChange={(e) => setSettings({ ...settings, address: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -528,13 +528,13 @@ export default function SettingsPage() {
                   type="text"
                   value={settings.addressEn}
                   onChange={(e) => setSettings({ ...settings, addressEn: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
               </div>
             </div>
 
-            <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200 pt-4">
+            <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200 pt-4">
               <Clock className="w-5 h-5 inline ml-2" />
               שעות פעילות
             </h2>
@@ -549,7 +549,7 @@ export default function SettingsPage() {
                   value={settings.businessHours}
                   onChange={(e) => setSettings({ ...settings, businessHours: e.target.value })}
                   placeholder="א׳-ה׳ 09:00-19:00"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -561,7 +561,7 @@ export default function SettingsPage() {
                   value={settings.businessHoursEn}
                   onChange={(e) => setSettings({ ...settings, businessHoursEn: e.target.value })}
                   placeholder="Sun-Thu 09:00-19:00"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
               </div>
@@ -577,7 +577,7 @@ export default function SettingsPage() {
                   value={settings.businessHoursFriday}
                   onChange={(e) => setSettings({ ...settings, businessHoursFriday: e.target.value })}
                   placeholder="ו׳ 09:00-13:00"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
@@ -589,7 +589,7 @@ export default function SettingsPage() {
                   value={settings.businessHoursFridayEn}
                   onChange={(e) => setSettings({ ...settings, businessHoursFridayEn: e.target.value })}
                   placeholder="Fri 09:00-13:00"
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
               </div>
@@ -600,7 +600,7 @@ export default function SettingsPage() {
 
         {activeTab === 'social' && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+            <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
               רשתות חברתיות
             </h2>
             
@@ -614,7 +614,7 @@ export default function SettingsPage() {
                 value={settings.facebookUrl}
                 onChange={(e) => setSettings({ ...settings, facebookUrl: e.target.value })}
                 placeholder="https://facebook.com/..."
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
             </div>
@@ -629,7 +629,7 @@ export default function SettingsPage() {
                 value={settings.instagramUrl}
                 onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
                 placeholder="https://instagram.com/..."
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
             </div>
@@ -643,7 +643,7 @@ export default function SettingsPage() {
                 value={settings.tiktokUrl}
                 onChange={(e) => setSettings({ ...settings, tiktokUrl: e.target.value })}
                 placeholder="https://tiktok.com/@..."
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
             </div>
@@ -657,7 +657,7 @@ export default function SettingsPage() {
                 value={settings.youtubeUrl}
                 onChange={(e) => setSettings({ ...settings, youtubeUrl: e.target.value })}
                 placeholder="https://youtube.com/@..."
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
             </div>
@@ -672,7 +672,7 @@ export default function SettingsPage() {
                 value={settings.whatsappNumber}
                 onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
                 placeholder="972525118536"
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 dir="ltr"
               />
               <p className="text-xs text-slate-500 mt-1">
@@ -686,7 +686,7 @@ export default function SettingsPage() {
           <div className="space-y-8">
             {/* Story Section */}
             <div className="space-y-6">
-              <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+              <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
                 סיפור החברה
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
@@ -696,7 +696,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutStoryHeading}
                     onChange={(e) => setSettings({ ...settings, aboutStoryHeading: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -705,7 +705,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutStoryHeadingEn}
                     onChange={(e) => setSettings({ ...settings, aboutStoryHeadingEn: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     dir="ltr"
                   />
                 </div>
@@ -717,7 +717,7 @@ export default function SettingsPage() {
                     value={settings.aboutStoryText}
                     onChange={(e) => setSettings({ ...settings, aboutStoryText: e.target.value })}
                     rows={6}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none font-mono text-sm"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none font-mono text-sm"
                     placeholder="<p>פסקה ראשונה</p><p>פסקה שנייה</p>"
                   />
                   <p className="text-xs text-slate-500 mt-1">ניתן לכתוב HTML (תגיות p, strong, em וכו&apos;)</p>
@@ -728,7 +728,7 @@ export default function SettingsPage() {
                     value={settings.aboutStoryTextEn}
                     onChange={(e) => setSettings({ ...settings, aboutStoryTextEn: e.target.value })}
                     rows={6}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none font-mono text-sm"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none font-mono text-sm"
                     dir="ltr"
                     placeholder="<p>First paragraph</p><p>Second paragraph</p>"
                   />
@@ -741,7 +741,7 @@ export default function SettingsPage() {
                   value={settings.aboutStoryImage}
                   onChange={(e) => setSettings({ ...settings, aboutStoryImage: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   dir="ltr"
                 />
                 {settings.aboutStoryImage && (
@@ -755,7 +755,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutBadgeNumber}
                     onChange={(e) => setSettings({ ...settings, aboutBadgeNumber: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -764,7 +764,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutBadgeLabel}
                     onChange={(e) => setSettings({ ...settings, aboutBadgeLabel: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -773,7 +773,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutBadgeLabelEn}
                     onChange={(e) => setSettings({ ...settings, aboutBadgeLabelEn: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     dir="ltr"
                   />
                 </div>
@@ -782,7 +782,7 @@ export default function SettingsPage() {
 
             {/* Mission & Vision */}
             <div className="space-y-6">
-              <h2 className="text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
+              <h2 className="text-base sm:text-lg font-semibold text-slate-800 pb-4 border-b border-slate-200">
                 משימה וחזון
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
@@ -792,7 +792,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutMissionTitle}
                     onChange={(e) => setSettings({ ...settings, aboutMissionTitle: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -801,7 +801,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutMissionTitleEn}
                     onChange={(e) => setSettings({ ...settings, aboutMissionTitleEn: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     dir="ltr"
                   />
                 </div>
@@ -813,7 +813,7 @@ export default function SettingsPage() {
                     value={settings.aboutMissionText}
                     onChange={(e) => setSettings({ ...settings, aboutMissionText: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                   />
                 </div>
                 <div>
@@ -822,7 +822,7 @@ export default function SettingsPage() {
                     value={settings.aboutMissionTextEn}
                     onChange={(e) => setSettings({ ...settings, aboutMissionTextEn: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                     dir="ltr"
                   />
                 </div>
@@ -834,7 +834,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutVisionTitle}
                     onChange={(e) => setSettings({ ...settings, aboutVisionTitle: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -843,7 +843,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.aboutVisionTitleEn}
                     onChange={(e) => setSettings({ ...settings, aboutVisionTitleEn: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     dir="ltr"
                   />
                 </div>
@@ -855,7 +855,7 @@ export default function SettingsPage() {
                     value={settings.aboutVisionText}
                     onChange={(e) => setSettings({ ...settings, aboutVisionText: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                   />
                 </div>
                 <div>
@@ -864,7 +864,7 @@ export default function SettingsPage() {
                     value={settings.aboutVisionTextEn}
                     onChange={(e) => setSettings({ ...settings, aboutVisionTextEn: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                     dir="ltr"
                   />
                 </div>
@@ -874,7 +874,7 @@ export default function SettingsPage() {
             {/* Values */}
             <div className="space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-                <h2 className="text-lg font-semibold text-slate-800">ערכים</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-slate-800">ערכים</h2>
                 <button
                   type="button"
                   onClick={() => setAboutValues([...aboutValues, { title: '', titleEn: '', description: '', descriptionEn: '' }])}
@@ -933,7 +933,7 @@ export default function SettingsPage() {
             {/* Stats */}
             <div className="space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-                <h2 className="text-lg font-semibold text-slate-800">סטטיסטיקות</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-slate-800">סטטיסטיקות</h2>
                 <button
                   type="button"
                   onClick={() => setAboutStats([...aboutStats, { value: '', label: '', labelEn: '' }])}

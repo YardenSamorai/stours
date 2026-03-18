@@ -82,7 +82,7 @@ export default function BlogPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">בלוג</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">בלוג</h1>
           <p className="text-slate-500">נהל את הפוסטים והתוכן בבלוג</p>
         </div>
         <Link

@@ -113,7 +113,7 @@ export default function NewServicePage() {
           <ArrowRight className="w-6 h-6 text-slate-600" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">שירות חדש</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">שירות חדש</h1>
           <p className="text-slate-500">הוסף שירות חדש לאתר</p>
         </div>
       </div>
@@ -149,7 +149,7 @@ export default function NewServicePage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Basic Info */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">פרטים בסיסיים</h2>
               
               <div>
@@ -243,9 +243,9 @@ export default function NewServicePage() {
             </div>
 
             {/* Icon Selection */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">אייקון</h2>
-              <div className="grid grid-cols-6 gap-3">
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
                 {availableIcons.map((iconOption) => (
                   <button
                     key={iconOption.name}
@@ -266,7 +266,7 @@ export default function NewServicePage() {
             </div>
 
             {/* Color Selection */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">צבע</h2>
               <div className="grid grid-cols-4 gap-3">
                 {colorPresets.map((preset, index) => (
@@ -291,7 +291,7 @@ export default function NewServicePage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Preview */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm">
               <h2 className="text-lg font-semibold text-slate-800 mb-4">תצוגה מקדימה</h2>
               <div className="bg-slate-50 rounded-xl p-6">
                 <div className={`w-14 h-14 ${formData.iconBg} rounded-2xl flex items-center justify-center mb-4`}>
@@ -307,7 +307,7 @@ export default function NewServicePage() {
             </div>
 
             {/* Order */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">סדר הצגה</h2>
               <input
                 type="number"
@@ -320,7 +320,7 @@ export default function NewServicePage() {
             </div>
 
             {/* Status */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">סטטוס</h2>
               <label className="flex items-center gap-3 cursor-pointer">
                 <input

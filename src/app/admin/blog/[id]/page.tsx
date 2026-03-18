@@ -127,7 +127,7 @@ export default function EditBlogPostPage() {
           <ArrowRight className="w-6 h-6 text-slate-600" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">עריכת פוסט</h1>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">עריכת פוסט</h1>
           <p className="text-slate-500">עדכן את תוכן הפוסט</p>
         </div>
       </div>
@@ -138,7 +138,7 @@ export default function EditBlogPostPage() {
           <button
             type="button"
             onClick={() => setActiveTab('he')}
-            className={`px-6 py-2 rounded-xl font-medium transition-colors ${
+            className={`px-3 py-1.5 sm:px-6 sm:py-2 rounded-xl font-medium transition-colors ${
               activeTab === 'he'
                 ? 'bg-primary-600 text-white'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -149,7 +149,7 @@ export default function EditBlogPostPage() {
           <button
             type="button"
             onClick={() => setActiveTab('en')}
-            className={`px-6 py-2 rounded-xl font-medium transition-colors ${
+            className={`px-3 py-1.5 sm:px-6 sm:py-2 rounded-xl font-medium transition-colors ${
               activeTab === 'en'
                 ? 'bg-primary-600 text-white'
                 : 'text-slate-600 hover:bg-slate-100'
@@ -163,7 +163,7 @@ export default function EditBlogPostPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Title & Content */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">תוכן</h2>
               
               {activeTab === 'he' ? (
@@ -257,7 +257,7 @@ export default function EditBlogPostPage() {
             </div>
 
             {/* SEO */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">SEO</h2>
               
               {activeTab === 'he' ? (
@@ -323,7 +323,7 @@ export default function EditBlogPostPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Publish Settings */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">פרסום</h2>
               
               <div>
@@ -355,7 +355,7 @@ export default function EditBlogPostPage() {
             </div>
 
             {/* Image */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">תמונה ראשית</h2>
               
               <div>
@@ -382,7 +382,7 @@ export default function EditBlogPostPage() {
             </div>
 
             {/* Category */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">קטגוריה</h2>
               
               <select
@@ -405,7 +405,7 @@ export default function EditBlogPostPage() {
             </div>
 
             {/* Author */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
               <h2 className="text-lg font-semibold text-slate-800">מחבר</h2>
               
               <input
