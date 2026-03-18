@@ -251,19 +251,19 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
         <div><label className="block text-sm font-medium text-slate-700 mb-2">חברת תעופה</label><input type="text" value={flight.airline} onChange={e => update('airline', e.target.value)} placeholder="אל על, ריינאייר..." className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" /></div>
         <div><label className="block text-sm font-medium text-slate-700 mb-2">מספר טיסה</label><input type="text" value={flight.flightNumber} onChange={e => update('flightNumber', e.target.value)} placeholder="LY001" className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" dir="ltr" /></div>
       </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="p-4 bg-blue-50 rounded-xl space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <div className="p-3 sm:p-4 bg-blue-50 rounded-xl space-y-3">
           <h3 className="font-semibold text-blue-800 text-sm">🛫 מוצא</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-slate-600 mb-1">קוד שדה (IATA)</label><input type="text" value={flight.departureAirport} onChange={e => update('departureAirport', e.target.value.toUpperCase())} placeholder="TLV" maxLength={3} className="w-full px-3 py-2 border border-slate-200 rounded-lg text-center font-mono font-bold text-lg" dir="ltr" /></div>
-            <div><label className="block text-xs text-slate-600 mb-1">עיר</label><input type="text" value={flight.departureCity} onChange={e => update('departureCity', e.target.value)} placeholder="תל אביב" className="w-full px-3 py-2 border border-slate-200 rounded-lg" /></div>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <div><label className="block text-xs text-slate-600 mb-1">קוד שדה (IATA)</label><input type="text" value={flight.departureAirport} onChange={e => update('departureAirport', e.target.value.toUpperCase())} placeholder="TLV" maxLength={3} className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-center font-mono font-bold text-base sm:text-lg" dir="ltr" /></div>
+            <div><label className="block text-xs text-slate-600 mb-1">עיר</label><input type="text" value={flight.departureCity} onChange={e => update('departureCity', e.target.value)} placeholder="תל אביב" className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-sm" /></div>
           </div>
         </div>
-        <div className="p-4 bg-green-50 rounded-xl space-y-3">
+        <div className="p-3 sm:p-4 bg-green-50 rounded-xl space-y-3">
           <h3 className="font-semibold text-green-800 text-sm">🛬 יעד</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-slate-600 mb-1">קוד שדה (IATA)</label><input type="text" value={flight.arrivalAirport} onChange={e => update('arrivalAirport', e.target.value.toUpperCase())} placeholder="ATH" maxLength={3} className="w-full px-3 py-2 border border-slate-200 rounded-lg text-center font-mono font-bold text-lg" dir="ltr" /></div>
-            <div><label className="block text-xs text-slate-600 mb-1">עיר</label><input type="text" value={flight.arrivalCity} onChange={e => update('arrivalCity', e.target.value)} placeholder="אתונה" className="w-full px-3 py-2 border border-slate-200 rounded-lg" /></div>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <div><label className="block text-xs text-slate-600 mb-1">קוד שדה (IATA)</label><input type="text" value={flight.arrivalAirport} onChange={e => update('arrivalAirport', e.target.value.toUpperCase())} placeholder="ATH" maxLength={3} className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-center font-mono font-bold text-base sm:text-lg" dir="ltr" /></div>
+            <div><label className="block text-xs text-slate-600 mb-1">עיר</label><input type="text" value={flight.arrivalCity} onChange={e => update('arrivalCity', e.target.value)} placeholder="אתונה" className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-sm" /></div>
           </div>
         </div>
       </div>
@@ -276,12 +276,16 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
         <div className="flex items-center justify-between"><h3 className="font-semibold text-slate-700">עצירות ביניים</h3><button type="button" onClick={addStop} className="flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 font-medium"><Plus className="w-4 h-4" /> הוסף עצירה</button></div>
         {flight.stops.length === 0 && <p className="text-slate-400 text-sm">טיסה ישירה (ללא עצירות)</p>}
         {flight.stops.map((stop, i) => (
-          <div key={i} className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
-            <span className="text-amber-600 font-bold text-sm">#{i + 1}</span>
-            <input type="text" value={stop.airport} onChange={e => updateStop(i, 'airport', e.target.value.toUpperCase())} placeholder="IST" maxLength={3} className="w-20 px-3 py-2 border border-slate-200 rounded-lg text-center font-mono" dir="ltr" />
-            <input type="text" value={stop.city} onChange={e => updateStop(i, 'city', e.target.value)} placeholder="איסטנבול" className="flex-1 px-3 py-2 border border-slate-200 rounded-lg" />
-            <input type="text" value={stop.duration} onChange={e => updateStop(i, 'duration', e.target.value)} placeholder="2 שעות" className="w-28 px-3 py-2 border border-slate-200 rounded-lg" />
-            <button type="button" onClick={() => removeStop(i)} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
+          <div key={i} className="p-3 bg-amber-50 rounded-xl space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-amber-600 font-bold text-sm">עצירה #{i + 1}</span>
+              <button type="button" onClick={() => removeStop(i)} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <input type="text" value={stop.airport} onChange={e => updateStop(i, 'airport', e.target.value.toUpperCase())} placeholder="IST" maxLength={3} className="px-2 py-2 border border-slate-200 rounded-lg text-center font-mono text-sm" dir="ltr" />
+              <input type="text" value={stop.city} onChange={e => updateStop(i, 'city', e.target.value)} placeholder="איסטנבול" className="px-2 py-2 border border-slate-200 rounded-lg text-sm" />
+              <input type="text" value={stop.duration} onChange={e => updateStop(i, 'duration', e.target.value)} placeholder="2 שעות" className="px-2 py-2 border border-slate-200 rounded-lg text-sm" />
+            </div>
           </div>
         ))}
       </div>
