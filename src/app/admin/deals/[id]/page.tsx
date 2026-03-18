@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import ImageUploader from '@/components/admin/ImageUploader';
 import LocationPicker from '@/components/admin/LocationPicker';
+import AirportPicker from '@/components/admin/AirportPicker';
 import type { FlightInfo, FlightStop, HotelInfo } from '@/db/schema';
 
 interface Category { id: number; title: string; titleEn: string | null; isActive?: boolean | null; }
@@ -254,17 +255,23 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         <div className="p-3 sm:p-4 bg-blue-50 rounded-xl space-y-3">
           <h3 className="font-semibold text-blue-800 text-sm">🛫 מוצא</h3>
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
-            <div><label className="block text-xs text-slate-600 mb-1">קוד שדה (IATA)</label><input type="text" value={flight.departureAirport} onChange={e => update('departureAirport', e.target.value.toUpperCase())} placeholder="TLV" maxLength={3} className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-center font-mono font-bold text-base sm:text-lg" dir="ltr" /></div>
-            <div><label className="block text-xs text-slate-600 mb-1">עיר</label><input type="text" value={flight.departureCity} onChange={e => update('departureCity', e.target.value)} placeholder="תל אביב" className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-sm" /></div>
-          </div>
+          <AirportPicker
+            iata={flight.departureAirport}
+            city={flight.departureCity}
+            onSelect={(iata, city) => onChange({ ...flight, departureAirport: iata, departureCity: city })}
+            label="שדה תעופה"
+            placeholder="חפש שדה תעופה (TLV, בן גוריון...)"
+          />
         </div>
         <div className="p-3 sm:p-4 bg-green-50 rounded-xl space-y-3">
           <h3 className="font-semibold text-green-800 text-sm">🛬 יעד</h3>
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
-            <div><label className="block text-xs text-slate-600 mb-1">קוד שדה (IATA)</label><input type="text" value={flight.arrivalAirport} onChange={e => update('arrivalAirport', e.target.value.toUpperCase())} placeholder="ATH" maxLength={3} className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-center font-mono font-bold text-base sm:text-lg" dir="ltr" /></div>
-            <div><label className="block text-xs text-slate-600 mb-1">עיר</label><input type="text" value={flight.arrivalCity} onChange={e => update('arrivalCity', e.target.value)} placeholder="אתונה" className="w-full px-2 sm:px-3 py-2 border border-slate-200 rounded-lg text-sm" /></div>
-          </div>
+          <AirportPicker
+            iata={flight.arrivalAirport}
+            city={flight.arrivalCity}
+            onSelect={(iata, city) => onChange({ ...flight, arrivalAirport: iata, arrivalCity: city })}
+            label="שדה תעופה"
+            placeholder="חפש שדה תעופה (ATH, אתונה...)"
+          />
         </div>
       </div>
       <div className="grid md:grid-cols-3 gap-4">
@@ -281,10 +288,19 @@ function FlightSection({ title, flight, onChange, icon }: { title: string; fligh
               <span className="text-amber-600 font-bold text-sm">עצירה #{i + 1}</span>
               <button type="button" onClick={() => removeStop(i)} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              <input type="text" value={stop.airport} onChange={e => updateStop(i, 'airport', e.target.value.toUpperCase())} placeholder="IST" maxLength={3} className="px-2 py-2 border border-slate-200 rounded-lg text-center font-mono text-sm" dir="ltr" />
-              <input type="text" value={stop.city} onChange={e => updateStop(i, 'city', e.target.value)} placeholder="איסטנבול" className="px-2 py-2 border border-slate-200 rounded-lg text-sm" />
-              <input type="text" value={stop.duration} onChange={e => updateStop(i, 'duration', e.target.value)} placeholder="2 שעות" className="px-2 py-2 border border-slate-200 rounded-lg text-sm" />
+            <div className="grid grid-cols-[1fr_auto] gap-2">
+              <AirportPicker
+                iata={stop.airport}
+                city={stop.city}
+                onSelect={(iata, city) => {
+                  const stops = [...flight.stops];
+                  stops[i] = { ...stops[i], airport: iata, city };
+                  onChange({ ...flight, stops });
+                }}
+                compact
+                placeholder="חפש שדה..."
+              />
+              <input type="text" value={stop.duration} onChange={e => updateStop(i, 'duration', e.target.value)} placeholder="2 שעות" className="px-2 py-2 border border-slate-200 rounded-lg text-sm w-20" />
             </div>
           </div>
         ))}
