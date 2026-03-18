@@ -25,7 +25,7 @@ export default function StickyDealBar({ dealTitle, price, whatsappUrl, phoneNumb
   if (!visible) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-lg transform transition-transform duration-300">
+    <div className="hidden lg:block fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-lg transform transition-transform duration-300">
       <div className="container mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <span className="font-bold text-slate-800 truncate text-sm md:text-base">{dealTitle}</span>
