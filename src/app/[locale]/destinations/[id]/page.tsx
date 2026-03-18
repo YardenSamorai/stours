@@ -13,6 +13,7 @@ import { eq, and, ne, desc } from 'drizzle-orm';
 import type { Metadata } from 'next';
 import { ProductJsonLd } from '@/components/JsonLd';
 import StickyDealBar from '@/components/StickyDealBar';
+import ImageLightbox from '@/components/ImageLightbox';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -264,12 +265,6 @@ export default async function DealDetailPage({ params }: { params: Promise<{ loc
                     </h2>
                   </div>
                   <div className="p-4 sm:p-6">
-                    {/* Hotel Main Image (full width on mobile) */}
-                    {deal.hotel!.images && deal.hotel!.images.length > 0 && (
-                      <div className="relative aspect-video sm:aspect-[16/10] rounded-xl overflow-hidden mb-4">
-                        <Image src={deal.hotel!.images[0]} alt={deal.hotel!.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 60vw" />
-                      </div>
-                    )}
                     {/* Hotel Info */}
                     <div className="space-y-3">
                       <div>
@@ -308,14 +303,10 @@ export default async function DealDetailPage({ params }: { params: Promise<{ loc
                         <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{deal.hotel!.roomDescription}</p>
                       )}
                     </div>
-                    {/* Hotel Gallery */}
-                    {deal.hotel!.images && deal.hotel!.images.length > 1 && (
-                      <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4">
-                        {deal.hotel!.images.slice(1).map((img, i) => (
-                          <div key={i} className="relative aspect-square sm:aspect-video rounded-lg sm:rounded-xl overflow-hidden">
-                            <Image src={img} alt={`${deal.hotel!.name} ${i + 2}`} fill className="object-cover hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 33vw, 25vw" />
-                          </div>
-                        ))}
+                    {/* Hotel Gallery with Lightbox */}
+                    {deal.hotel!.images && deal.hotel!.images.length > 0 && (
+                      <div className="mt-4">
+                        <ImageLightbox images={deal.hotel!.images} alt={deal.hotel!.name} />
                       </div>
                     )}
                   </div>
@@ -401,13 +392,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ loc
               {deal.images && deal.images.length > 0 && (
                 <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm">
                   <h2 className="text-lg sm:text-2xl font-bold text-slate-800 mb-4 sm:mb-6">{isHebrew ? 'גלריה' : 'Gallery'}</h2>
-                  <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                    {deal.images.map((img, i) => (
-                      <div key={`g-${i}`} className={`relative rounded-xl overflow-hidden ${i === 0 && deal.images!.length > 1 ? 'col-span-2 h-48 sm:h-64 md:h-80' : 'h-32 sm:h-40'}`}>
-                        <Image src={img} alt={`${title} ${i + 1}`} fill className="object-cover hover:scale-105 transition-transform duration-300" sizes="(max-width: 768px) 100vw, 50vw" />
-                      </div>
-                    ))}
-                  </div>
+                  <ImageLightbox images={deal.images} alt={title} gridCols="grid-cols-2" aspectRatio="aspect-video" />
                 </div>
               )}
             </div>
