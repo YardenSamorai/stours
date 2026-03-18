@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   ArrowRight, Save, Plus, X, Plane, Building2, CreditCard,
-  Settings, ImageIcon, Upload, Loader2, Star, ChevronDown, ChevronUp, Trash2
+  Settings, ImageIcon, Upload, Loader2, Star, ChevronDown, ChevronUp, Trash2, BadgeCheck
 } from 'lucide-react';
 import ImageUploader from '@/components/admin/ImageUploader';
 import LocationPicker from '@/components/admin/LocationPicker';
@@ -56,7 +56,7 @@ const currencies = [
   { value: 'EUR', label: '€ אירו', symbol: '€' },
 ];
 
-type SectionId = 'basic' | 'outbound' | 'return' | 'hotel' | 'pricing' | 'images';
+type SectionId = 'basic' | 'outbound' | 'return' | 'hotel' | 'pricing' | 'highlights' | 'images';
 
 export default function NewDealPage() {
   const router = useRouter();
@@ -76,6 +76,7 @@ export default function NewDealPage() {
     spotsLeft: '',
     isActive: true, isFeatured: false,
     includes: [''], includesEn: [''],
+    highlights: [''] as string[], highlightsEn: [''] as string[],
     freeCancellation: false, cancellationPolicy: '',
   });
 
@@ -108,6 +109,8 @@ export default function NewDealPage() {
           spotsLeft: formData.spotsLeft ? parseInt(formData.spotsLeft) : null,
           includes: formData.includes.filter(i => i.trim()),
           includesEn: formData.includesEn.filter(i => i.trim()),
+          highlights: formData.highlights.filter(i => i.trim()),
+          highlightsEn: formData.highlightsEn.filter(i => i.trim()),
           outboundFlight: hasOutbound ? outbound : null,
           returnFlight: hasOutbound && !noReturn ? returnFlight : null,
           hotel: hasHotel ? hotel : null,
@@ -128,6 +131,7 @@ export default function NewDealPage() {
     { id: 'return', label: 'טיסה חזור', icon: Plane },
     { id: 'hotel', label: 'מלון', icon: Building2 },
     { id: 'pricing', label: 'תמחור ומדיניות', icon: CreditCard },
+    { id: 'highlights', label: 'יתרונות', icon: BadgeCheck },
     { id: 'images', label: 'תמונות', icon: ImageIcon },
   ];
 
@@ -316,7 +320,43 @@ export default function NewDealPage() {
           </div>
         )}
 
-        {/* SECTION 6: Images */}
+        {/* SECTION 6: Highlights / Trust Badges */}
+        {activeSection === 'highlights' && (
+          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
+            <div>
+              <h2 className="text-lg font-semibold text-slate-800 border-b pb-3">יתרונות הדיל</h2>
+              <p className="text-sm text-slate-500 mt-2">הוסף יתרונות שמוצגים ללקוח בדף הדיל (לדוגמה: הזמנה מאובטחת, ביטול חינם, תשלום בכל האמצעים)</p>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-sm font-medium text-slate-700">עברית</h3>
+              {formData.highlights.map((item, i) => (
+                <div key={i} className="flex gap-2">
+                  <input type="text" value={item} onChange={e => { const n = [...formData.highlights]; n[i] = e.target.value; setFormData({ ...formData, highlights: n }); }} placeholder="לדוגמה: הזמנה מאובטחת" className="flex-1 px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                  <button type="button" onClick={() => setFormData({ ...formData, highlights: formData.highlights.filter((_, idx) => idx !== i) })} className="p-3 text-red-500 hover:bg-red-50 rounded-xl"><X className="w-5 h-5" /></button>
+                </div>
+              ))}
+              <button type="button" onClick={() => setFormData({ ...formData, highlights: [...formData.highlights, ''] })} className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium">
+                <Plus className="w-5 h-5" /> הוסף יתרון
+              </button>
+            </div>
+
+            <div className="border-t pt-4 space-y-3">
+              <h3 className="text-sm font-medium text-slate-700">English</h3>
+              {formData.highlightsEn.map((item, i) => (
+                <div key={i} className="flex gap-2">
+                  <input type="text" value={item} onChange={e => { const n = [...formData.highlightsEn]; n[i] = e.target.value; setFormData({ ...formData, highlightsEn: n }); }} placeholder="e.g., Secure booking" className="flex-1 px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500" dir="ltr" />
+                  <button type="button" onClick={() => setFormData({ ...formData, highlightsEn: formData.highlightsEn.filter((_, idx) => idx !== i) })} className="p-3 text-red-500 hover:bg-red-50 rounded-xl"><X className="w-5 h-5" /></button>
+                </div>
+              ))}
+              <button type="button" onClick={() => setFormData({ ...formData, highlightsEn: [...formData.highlightsEn, ''] })} className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium">
+                <Plus className="w-5 h-5" /> Add highlight
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* SECTION 7: Images */}
         {activeSection === 'images' && (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm">

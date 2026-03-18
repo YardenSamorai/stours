@@ -99,6 +99,8 @@ export async function POST(request: Request) {
       outboundFlight: body.outboundFlight || null,
       returnFlight: body.returnFlight || null,
       hotel: body.hotel || null,
+      highlights: body.highlights || null,
+      highlightsEn: body.highlightsEn || null,
       freeCancellation: body.freeCancellation ?? false,
       cancellationPolicy: body.cancellationPolicy || null,
       isActive: body.isActive ?? true,

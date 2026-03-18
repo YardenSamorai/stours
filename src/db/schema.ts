@@ -60,6 +60,8 @@ export const deals = pgTable('deals', {
   outboundFlight: json('outbound_flight').$type<FlightInfo>(),
   returnFlight: json('return_flight').$type<FlightInfo>(),
   hotel: json('hotel').$type<HotelInfo>(),
+  highlights: json('highlights').$type<string[]>(),
+  highlightsEn: json('highlights_en').$type<string[]>(),
   freeCancellation: boolean('free_cancellation').default(false),
   cancellationPolicy: text('cancellation_policy'),
   isActive: boolean('is_active').default(true),

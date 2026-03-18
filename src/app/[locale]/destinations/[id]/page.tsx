@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import {
   Calendar, MapPin, Star, Clock, Check, ArrowRight, ArrowLeft,
-  Phone, MessageCircle, Flame, Shield, Award, CreditCard, Plane,
+  Phone, MessageCircle, Flame, Shield, Plane,
   Building2, Users, Utensils, Moon
 } from 'lucide-react';
 import { db, deals, siteSettings } from '@/db';
@@ -473,20 +473,22 @@ export default async function DealDetailPage({ params }: { params: Promise<{ loc
                     </Link>
                   </div>
 
-                  {/* Trust Badges */}
-                  <div className="mt-5 pt-5 border-t border-slate-100 space-y-2.5">
-                    {[
-                      { icon: Shield, text: isHebrew ? 'הזמנה מאובטחת' : 'Secure Booking' },
-                      { icon: Clock, text: deal.freeCancellation ? (isHebrew ? 'ביטול חינם' : 'Free cancellation') : (isHebrew ? 'ביטול חינם עד 48 שעות' : 'Free cancellation up to 48h') },
-                      { icon: Award, text: isHebrew ? '15+ שנות ניסיון' : '15+ years experience' },
-                      { icon: CreditCard, text: isHebrew ? 'תשלום בכל האמצעים' : 'All payment methods' },
-                    ].map((badge, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
-                        <badge.icon className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-                        <span>{badge.text}</span>
+                  {/* Deal Highlights */}
+                  {(() => {
+                    const highlights = isHebrew
+                      ? (deal.highlights as string[] | null)
+                      : (deal.highlightsEn as string[] | null) || (deal.highlights as string[] | null);
+                    return highlights && highlights.length > 0 ? (
+                      <div className="mt-5 pt-5 border-t border-slate-100 space-y-2.5">
+                        {highlights.map((text: string, i: number) => (
+                          <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
+                            <Check className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                            <span>{text}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    ) : null;
+                  })()}
                 </div>
               </div>
             </div>
